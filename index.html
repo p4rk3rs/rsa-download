@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Download RSA</title>
+<meta name="description" content="RSA: one trade, sent to every account. Download for Mac or Windows. Needs a Nine2Five Premium license.">
+<link rel="icon" href="bolt.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #13161b; --line: #262b33; --line-soft: #1c2027;
+  --ink: #f3f5f6; --muted: #8a94a0; --dim: #5d6670;
+  --lime: #b5f64a; --lime-ink: #1c3009;
+  --wrap: 1120px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body { font: 16px/1.55 "Inter Tight", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+       -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+
+/* top bar */
+.top { border-bottom: 1px solid var(--line-soft); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.mark { display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 800;
+        font-size: 30px; letter-spacing: -1.5px; color: var(--lime); }
+.mark img { width: 26px; height: 30px; }
+.mark span { color: #3b413a; font-weight: 400; margin-left: 2px; }
+.top a.plain { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
+.top a.plain:hover { color: var(--ink); }
+
+/* hero */
+.hero { position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; left: 50%; bottom: -260px; width: 1100px; height: 420px;
+               transform: translateX(-50%); pointer-events: none;
+               background: radial-gradient(closest-side, rgba(181,246,74,.16), rgba(181,246,74,0)); }
+.hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 40px; text-align: center; }
+h1 { margin: 0; font-size: clamp(46px, 8vw, 92px); line-height: .98; letter-spacing: -3.5px; font-weight: 800; }
+h1 em { font-style: normal; color: var(--lime); display: block; }
+.lede { margin: 22px auto 0; max-width: 560px; color: var(--muted); font-size: 19px; }
+
+.downloads { display: flex; justify-content: center; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
+.dl { display: flex; align-items: center; gap: 14px; min-width: 270px; padding: 16px 20px; border-radius: 12px;
+      text-decoration: none; border: 1px solid var(--line); background: var(--panel); text-align: left;
+      transition: border-color .15s, transform .15s; }
+.dl:hover { border-color: #3a4250; transform: translateY(-1px); }
+.dl svg { width: 26px; height: 26px; flex: none; }
+.dl b { display: block; font-size: 17px; font-weight: 700; letter-spacing: -.2px; }
+.dl small { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.dl .go { margin-left: auto; font-size: 20px; opacity: .7; }
+.dl.primary { background: var(--lime); border-color: var(--lime); color: var(--lime-ink); }
+.dl.primary small { color: #3d5a1a; }
+.dl.primary:hover { border-color: var(--lime); background: #c2fb63; }
+.license-line { margin-top: 18px; font-size: 14px; color: var(--dim); }
+.license-line a { color: var(--muted); }
+
+.shot { position: relative; z-index: 1; margin: 56px auto 0; max-width: 980px; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+
+/* sections */
+section.block { border-top: 1px solid var(--line-soft); padding: 72px 0; }
+.label { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: var(--lime); }
+h2 { margin: 10px 0 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -1.4px; line-height: 1.05; font-weight: 800; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px;
+         border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.step { padding: 26px 26px 30px; background: var(--panel); }
+.step + .step { border-left: 1px solid var(--line); }
+.step .n { font-size: 15px; font-weight: 800; color: var(--lime); }
+.step h3 { margin: 12px 0 8px; font-size: 21px; letter-spacing: -.4px; }
+.step p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+.notes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 40px; }
+.note { border: 1px solid var(--line); border-radius: 14px; padding: 24px 26px; }
+.note h3 { margin: 0 0 10px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+.note h3 svg { width: 20px; height: 20px; }
+.note ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 15.5px; }
+.note li + li { margin-top: 6px; }
+.note b { color: var(--ink); font-weight: 600; }
+
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.fact h3 { margin: 0 0 6px; font-size: 17px; }
+.fact p { margin: 0; color: var(--muted); font-size: 15px; }
+
+footer { border-top: 1px solid var(--line-soft); padding: 34px 0 48px; color: var(--dim); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer a { color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero .wrap { padding-top: 56px; }
+  h1 { letter-spacing: -2px; }
+  .steps, .notes, .facts { grid-template-columns: 1fr; }
+  .step + .step { border-left: 0; border-top: 1px solid var(--line); }
+  .dl { min-width: 0; width: 100%; }
+  section.block { padding: 52px 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="./" aria-label="RSA"><img src="bolt.svg" alt="">rsa<span>/</span></a>
+    <a class="plain" href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <h1>One trade.<em>Every account.</em></h1>
+      <p class="lede">RSA sends one order to every account you hold at Robinhood, Public, Fennel, Fidelity, Schwab, SoFi, Webull and WellsTrade, and tells you what happened at each one.</p>
+
+      <div class="downloads">
+        <a class="dl" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac.zip">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
+          <span><b>Download for Mac</b><small id="mac-meta">Apple silicon (M1 and newer)</small></span>
+          <span class="go" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="dl" id="dl-win" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-windows.zip">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>
+          <span><b>Download for Windows</b><small id="win-meta">Windows 10 and 11</small></span>
+          <span class="go" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+      <p class="license-line">Free to download. Opening it needs a Nine2Five Premium license key. <a href="https://whop.com/ninetwofive/">Get one on Whop</a>.</p>
+
+      <div class="shot"><img src="hero.jpg" width="1056" height="860" alt="The RSA window: a batch of 36 accounts ready to review, with every brokerage listed on the right."></div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="label">GET STARTED</div>
+      <h2>Three Steps</h2>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>Download and Open</h3><p>Pick your computer above, unzip it, and open RSA. The first open has one extra click, shown below.</p></div>
+        <div class="step"><div class="n">02</div><h3>Paste Your License Key</h3><p>On Whop, open Orders, then Nine2Five Premium, and copy the key. Paste it once. RSA remembers it.</p></div>
+        <div class="step"><div class="n">03</div><h3>Add Your Brokers</h3><p>In Accounts, press Set Up on each brokerage. Your logins stay on your computer and never leave it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="label">FIRST OPEN</div>
+      <h2>Your Computer Will Ask Once</h2>
+      <div class="notes">
+        <div class="note">
+          <h3><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>Mac</h3>
+          <ol>
+            <li>Unzip, then drag <b>RSA</b> into Applications.</li>
+            <li>Open it. If macOS says it can't check the app, open <b>System Settings</b>, then <b>Privacy &amp; Security</b>, and press <b>Open Anyway</b>.</li>
+            <li>After that it opens like any other app.</li>
+          </ol>
+        </div>
+        <div class="note">
+          <h3><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>Windows</h3>
+          <ol>
+            <li>Right-click the zip, choose <b>Extract All</b>, and open the RSA folder.</li>
+            <li>Double-click <b>RSA.exe</b>. If a blue SmartScreen box appears, press <b>More info</b>, then <b>Run anyway</b>.</li>
+            <li>Keep the whole folder together; RSA.exe needs the files next to it.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="label">GOOD TO KNOW</div>
+      <h2>Before You Trade</h2>
+      <div class="facts">
+        <div class="fact"><h3>Dry Run by Default</h3><p>Every batch is a check until you choose Send Live and confirm it. Nothing is placed by itself.</p></div>
+        <div class="fact"><h3>Google Chrome Needed</h3><p>Fidelity, Schwab, SoFi and WellsTrade sign in through your installed Chrome, in their own windows.</p></div>
+        <div class="fact"><h3>One Key, One Computer</h3><p>Moving to a new computer? Press Reset License Key in your Whop orders, then paste the key there.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span id="version-line">RSA by Nine2Five</span>
+    <span>Not investment advice. You choose and confirm every trade. <a href="https://whop.com/ninetwofive/">Nine2Five on Whop</a></span>
+  </div>
+</footer>
+
+<script>
+// The release this page offers, written by the publish step (latest.json next to this page).
+fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(v => {
+  if (!v) return;
+  if (v.version) document.getElementById("version-line").textContent = "RSA " + v.version + " by Nine2Five";
+  if (v.mac_mb) document.getElementById("mac-meta").textContent = "Apple silicon · " + v.mac_mb + " MB";
+  if (v.win_mb) document.getElementById("win-meta").textContent = "Windows 10 and 11 · " + v.win_mb + " MB";
+}).catch(() => {});
+// Put the visitor's own computer first and in lime.
+(function () {
+  const ua = navigator.userAgent || "", mac = /Macintosh|Mac OS X/.test(ua), win = /Windows/.test(ua);
+  const first = document.getElementById(win ? "dl-win" : "dl-mac");
+  if (mac || win) { first.classList.add("primary"); first.parentNode.prepend(first); }
+})();
+</script>
+</body>
+</html>
