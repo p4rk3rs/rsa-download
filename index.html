@@ -52,6 +52,8 @@ h1 em { font-style: normal; color: var(--lime); display: block; }
 .dl svg { width: 26px; height: 26px; flex: none; }
 .dl b { display: block; font-size: 17px; font-weight: 700; letter-spacing: -.2px; }
 .dl small { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.dl small.ver { font-size: 12px; opacity: .6; margin-top: 3px; }
+.dl small.ver:empty { display: none; }
 .dl .go { margin-left: auto; font-size: 20px; opacity: .7; }
 .dl.primary { background: var(--lime); border-color: var(--lime); color: var(--lime-ink); }
 .dl.primary small { color: #3d5a1a; }
@@ -118,17 +120,17 @@ footer a { color: var(--muted); }
       <div class="downloads">
         <a class="dl" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac-apple-silicon.dmg">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
-          <span><b>Mac, Apple Silicon</b><small id="mac-meta">M1 and newer</small></span>
+          <span><b>Mac, Apple Silicon</b><small id="mac-meta">M1 and newer</small><small class="ver" id="mac-ver"></small></span>
           <span class="go" aria-hidden="true">&rarr;</span>
         </a>
         <a class="dl" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac-intel.dmg">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
-          <span><b>Mac, Intel</b><small id="mac-intel-meta">Older Macs</small></span>
+          <span><b>Mac, Intel</b><small id="mac-intel-meta">Older Macs</small><small class="ver" id="mac-intel-ver"></small></span>
           <span class="go" aria-hidden="true">&rarr;</span>
         </a>
         <a class="dl" id="dl-win" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-windows-setup.exe">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>
-          <span><b>Windows</b><small id="win-meta">Windows 10 and 11</small></span>
+          <span><b>Windows</b><small id="win-meta">Windows 10 and 11</small><small class="ver" id="win-ver"></small></span>
           <span class="go" aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -201,7 +203,11 @@ footer a { color: var(--muted); }
 // The release this page offers, written by the publish step (latest.json next to this page).
 fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(v => {
   if (!v) return;
-  if (v.version) document.getElementById("version-line").textContent = "RSA " + v.version + " by Nine2Five";
+  // each computer's own version (Mac and Windows can be a release apart); older files only say "version"
+  const mac = v.mac_version || v.version, win = v.win_version || v.version;
+  if (mac && mac === win) document.getElementById("version-line").textContent = "RSA " + mac + " by Nine2Five";
+  if (mac) document.getElementById("mac-ver").textContent = document.getElementById("mac-intel-ver").textContent = "Version " + mac;
+  if (win) document.getElementById("win-ver").textContent = "Version " + win;
   if (v.mac_mb) document.getElementById("mac-meta").textContent = "M1 and newer · " + v.mac_mb + " MB";
   if (v.mac_intel_mb) document.getElementById("mac-intel-meta").textContent = "Older Macs · " + v.mac_intel_mb + " MB";
   if (v.win_mb) document.getElementById("win-meta").textContent = "Windows 10 and 11 · " + v.win_mb + " MB";
