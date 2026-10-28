@@ -208,6 +208,12 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
   if (mac && mac === win) document.getElementById("version-line").textContent = "RSA " + mac + " by Nine2Five";
   if (mac) document.getElementById("mac-ver").textContent = document.getElementById("mac-intel-ver").textContent = "Version " + mac;
   if (win) document.getElementById("win-ver").textContent = "Version " + win;
+  // download the file named with its version (RSA-1.1.2-mac-apple-silicon.dmg), so a second
+  // download is not "RSA-mac-apple-silicon (1).dmg"; the plain names stay as the fallback
+  const f = v.files || {}, latest = "https://github.com/p4rk3rs/rsa-download/releases/latest/download/";
+  [["dl-mac", f.apple_silicon], ["dl-mac-intel", f.intel], ["dl-win", f.windows]].forEach(([id, name]) => {
+    if (name && /^RSA-[\w.-]+$/.test(name)) document.getElementById(id).href = latest + name;
+  });
   if (v.mac_mb) document.getElementById("mac-meta").textContent = "M1 and newer · " + v.mac_mb + " MB";
   if (v.mac_intel_mb) document.getElementById("mac-intel-meta").textContent = "Older Macs · " + v.mac_intel_mb + " MB";
   if (v.win_mb) document.getElementById("win-meta").textContent = "Windows 10 and 11 · " + v.win_mb + " MB";
