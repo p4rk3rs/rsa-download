@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Download RSA</title>
+<title>Download RSA by Nine2Five</title>
 <meta name="description" content="RSA: one trade, sent to every account. Download for Mac or Windows. Needs a Nine2Five Premium license.">
 <link rel="icon" href="bolt.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,10 +26,10 @@ a { color: inherit; }
 /* top bar */
 .top { border-bottom: 1px solid var(--line-soft); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.mark { display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 800;
-        font-size: 30px; letter-spacing: -1.5px; color: var(--lime); }
-.mark img { width: 26px; height: 30px; }
-.mark span { color: #3b413a; font-weight: 400; margin-left: 2px; }
+.mark { display: inline-block; text-decoration: none; font-weight: 800; white-space: nowrap;
+        font-size: 28px; letter-spacing: -1.4px; color: var(--ink); }
+.mark b { color: var(--lime); font-weight: 800; }
+.mark span { color: var(--dim); font-weight: 600; font-size: 15px; letter-spacing: 1.5px; margin-left: 10px; }
 .top a.plain { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
 .top a.plain:hover { color: var(--ink); }
 
@@ -84,7 +84,7 @@ h2 { margin: 10px 0 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -1.4
 .note li + li { margin-top: 6px; }
 .note b { color: var(--ink); font-weight: 600; }
 
-.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 40px; margin-top: 40px; }
 .fact h3 { margin: 0 0 6px; font-size: 17px; }
 .fact p { margin: 0; color: var(--muted); font-size: 15px; }
 
@@ -106,7 +106,7 @@ footer a { color: var(--muted); }
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="./" aria-label="RSA"><img src="bolt.svg" alt="">rsa<span>/</span></a>
+    <a class="mark" href="./" aria-label="RSA by Nine2Five">Nine<b>2</b>Five<span>RSA</span></a>
     <a class="plain" href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
   </div>
 </header>
@@ -115,7 +115,7 @@ footer a { color: var(--muted); }
   <div class="hero">
     <div class="wrap">
       <h1>One trade.<em>Every account.</em></h1>
-      <p class="lede">RSA sends one order to every account you hold at Robinhood, Public, Fennel, Fidelity, Schwab, SoFi, Webull and WellsTrade, and tells you what happened at each one.</p>
+      <p class="lede">RSA sends one order to every account you hold at Robinhood, Public, Fennel, Fidelity, Schwab, SoFi, Webull, WellsTrade, TastyTrade and Aries, and tells you what happened at each one.</p>
 
       <div class="downloads">
         <a class="dl" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac-apple-silicon.dmg">
@@ -137,7 +137,7 @@ footer a { color: var(--muted); }
       <p class="license-line">Which Mac? Apple menu, About This Mac: "Chip" means Apple Silicon, "Processor" means Intel.</p>
       <p class="license-line">Free to download. Opening it needs a Nine2Five Premium license key. <a href="https://whop.com/ninetwofive/">Get one on Whop</a>.</p>
 
-      <div class="shot"><img src="hero.jpg" width="1056" height="860" alt="The RSA window: a batch of 36 accounts ready to review, with every brokerage listed on the right."></div>
+      <div class="shot"><img src="hero.jpg" width="1960" height="1070" alt="The RSA window: one buy filled in all seven accounts across Robinhood, Public and Fidelity."></div>
     </div>
   </div>
 
@@ -148,7 +148,7 @@ footer a { color: var(--muted); }
       <div class="steps">
         <div class="step"><div class="n">01</div><h3>Download and Open</h3><p>Pick your computer above and run the installer. The first open has one extra click, shown below.</p></div>
         <div class="step"><div class="n">02</div><h3>Paste Your License Key</h3><p>On Whop, open Orders, then Nine2Five Premium, and copy the key. Paste it once. RSA remembers it.</p></div>
-        <div class="step"><div class="n">03</div><h3>Add Your Brokers</h3><p>In Accounts, press Set Up on each brokerage. Your logins stay on your computer and never leave it.</p></div>
+        <div class="step"><div class="n">03</div><h3>Add Your Brokers</h3><p>In Accounts, press Add on each brokerage. Your logins stay on your computer and never leave it.</p></div>
       </div>
     </div>
   </section>
@@ -185,7 +185,8 @@ footer a { color: var(--muted); }
       <h2>Before You Trade</h2>
       <div class="facts">
         <div class="fact"><h3>Hands-Off Once It's On</h3><p>Turn on Auto-Send once and set your limits. While RSA is open and connected, a fresh ping that fits your limits goes to your signed-in accounts by itself, after a short countdown you can stop. Anything else waits for you to review.</p></div>
-        <div class="fact"><h3>Google Chrome Needed</h3><p>Fidelity, Schwab, SoFi and WellsTrade sign in through your installed Chrome, in their own windows.</p></div>
+        <div class="fact"><h3>Google Chrome Needed</h3><p>Fidelity, Schwab, SoFi, Webull and WellsTrade sign in through your installed Chrome, in their own windows.</p></div>
+        <div class="fact"><h3>Your Colors</h3><p>Settings has six colorways, each in light and dark, or pick your own. Only the colors change.</p></div>
         <div class="fact"><h3>One Key, One Computer</h3><p>Moving to a new computer? Press Reset License Key in your Whop orders, then paste the key there.</p></div>
       </div>
     </div>
