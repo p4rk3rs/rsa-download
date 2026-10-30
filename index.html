@@ -14,37 +14,38 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Download the Nine2Five Bot</title>
 <meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you have, in seconds. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
-<link rel="icon" href="bolt.svg">
+<link rel="icon" href="icon-256.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
 <style>
 /* Tokens pulled from joinautopilot.com with getComputedStyle (1440x900, Firefox) */
 :root {
   --ink: #212121;        /* body text */
-  --h1: #333333;         /* hero headline */
-  --black: #121212;      /* section titles, buttons */
+  --h1: #021334;         /* hero headline (logo navy) */
+  --black: #021334;      /* section titles, strong text (logo navy) */
   --body: #656565;       /* step copy, footer links */
   --quiet: #9B9B9B;      /* hero sub, small captions */
   --line: #F4F4F4;       /* nav 2px line, row dividers, section borders */
   --well: #F7F7F7;       /* footer */
   --ring: #E6E6E6;       /* avatar ring (lab 91.6) */
-  --green: #009D55; --green-bg: #EBFAF4;
+  --green: #006a8f; --green-bg: #e2f8ff;   /* Premium tag: logo cyan family, readable on white */
+  --cyan: #10d6fe;       /* logo cyan */
   --bg: #fff;            /* page, nav, cards */
-  --strong: #000;        /* big headings */
+  --strong: #021334;     /* big headings */
   --chev: #bfbfbf;       /* chevrons, crumb arrows */
   --ul: #cfcfcf;         /* link underlines */
-  --btn-bg: #121212; --btn-ink: #fff; --btn-hover: #000;
+  --btn-bg: #021334; --btn-ink: #fff; --btn-hover: #0a2a5e;
   --frame: #fff;         /* screenshot bezel */
   --gutter: 80px;
   --sans: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 /* dark mode (Brandon 10-30): follows the computer unless the visitor picks with the toggle */
 :root[data-theme=dark] {
-  --ink: #e6e6e6; --h1: #f2f2f2; --black: #f4f4f4; --body: #a6a6a6; --quiet: #8a8a8a;
-  --line: #1f1f22; --well: #141416; --ring: #2c2c30; --green: #3ddc84; --green-bg: rgba(61,220,132,.12);
-  --bg: #0b0b0c; --strong: #fff; --chev: #5a5a60; --ul: #4a4a50;
-  --btn-bg: #f4f4f4; --btn-ink: #121212; --btn-hover: #fff; --frame: #1a1a1d;
+  --ink: #e6edf7; --h1: #fff; --black: #f1f5fb; --body: #a3b3cb; --quiet: #8396b4;
+  --line: #0e2550; --well: #071c43; --ring: #173163; --green: #10d6fe; --green-bg: rgba(16,214,254,.12);
+  --bg: #021334; --strong: #fff; --chev: #4a5f86; --ul: #3a5180;
+  --btn-bg: #10d6fe; --btn-ink: #021334; --btn-hover: #4fe0ff; --frame: #0b2350;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -68,7 +69,9 @@ html.phone .desk-only { display: none !important; }
   display: flex; align-items: center; justify-content: space-between; padding: 0 var(--gutter);
   background: var(--bg); border-bottom: 2px solid var(--line); }
 .mark { display: flex; align-items: center; gap: 7px; color: var(--ink); }
-.mark svg { width: 20px; height: 20px; }
+.mark .n2f { font-size: 26px; line-height: 1; font-weight: 900; letter-spacing: -0.5px; color: var(--black); }
+.mark .n2f b { color: var(--cyan); font-weight: 900; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .mark span { font-size: 20px; line-height: 22px; font-weight: 700; letter-spacing: -0.4px; }
 .nav .right { display: flex; align-items: center; gap: 24px; font-size: 14px; line-height: 21px; font-weight: 500; letter-spacing: -0.28px; }
 .nav .right .plain { color: var(--black); padding: 10px 20px; border-radius: 9999px; }
@@ -91,7 +94,8 @@ html.phone .desk-only { display: none !important; }
 /* ---- hero ---- */
 .hero { position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; padding-top: 20px; min-height: 1159px; }
 .appicon { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.appicon .tile { width: 84px; height: 84px; border-radius: 20px; background: var(--btn-bg); display: grid; place-items: center; }
+.appicon .tile { width: 96px; height: 96px; display: block; }
+:root[data-theme=dark] .appicon .tile { filter: drop-shadow(0 0 1px rgba(16,214,254,.55)) drop-shadow(0 10px 28px rgba(0,0,0,.45)); }
 .appicon .tile svg { width: 52px; height: 52px; }
 .appicon p { font-size: 18px; line-height: 28px; font-weight: 700; letter-spacing: -0.36px; color: var(--h1); }
 .hero h1 { padding: 32px 0 16px; text-align: center; font-weight: 700; color: var(--h1);
@@ -265,8 +269,8 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
 
 <nav class="nav">
   <a class="mark" href="./" aria-label="The Nine2Five bot">
-    <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" style="fill:var(--btn-bg)"/><path d="M9 7h13l-4.6 8.4H27L13.5 31l2.8-11.2H7z" style="fill:var(--btn-ink)"/></svg>
-    <span>Nine2Five</span>
+    <span class="n2f" aria-hidden="true">N<b>2</b>F</span>
+    <span class="sr">Nine2Five</span>
   </a>
   <div class="right">
     <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch light or dark mode" title="Light / dark mode">
@@ -282,7 +286,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
 <main>
   <section class="hero" id="download">
     <div class="appicon">
-      <div class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M9 5h14l-5 9h11L13 32l3-12H6z" style="fill:var(--btn-ink)"/></svg></div>
+      <img class="tile" src="icon-256.png" width="84" height="84" alt="">
       <p>Nine2Five</p>
     </div>
     <h1>One Play. All Your Accounts.</h1>
