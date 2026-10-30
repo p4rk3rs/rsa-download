@@ -1,202 +1,475 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+// light or dark before anything draws: the visitor's own pick, else their computer's setting
+(function () {
+  var t = null;
+  try { t = localStorage.getItem("n2f-theme"); } catch (e) {}
+  if (t !== "light" && t !== "dark") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  document.documentElement.dataset.theme = t;
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Download RSA by Nine2Five</title>
-<meta name="description" content="RSA: one trade, sent to every account. Download for Mac or Windows. Needs a Nine2Five Premium license.">
+<title>Download the Nine2Five Bot</title>
+<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you have, in seconds. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
 <link rel="icon" href="bolt.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
 <style>
+/* Tokens pulled from joinautopilot.com with getComputedStyle (1440x900, Firefox) */
 :root {
-  --bg: #0b0d10; --panel: #13161b; --line: #262b33; --line-soft: #1c2027;
-  --ink: #f3f5f6; --muted: #8a94a0; --dim: #5d6670;
-  --lime: #b5f64a; --lime-ink: #1c3009;
-  --wrap: 1120px;
+  --ink: #212121;        /* body text */
+  --h1: #333333;         /* hero headline */
+  --black: #121212;      /* section titles, buttons */
+  --body: #656565;       /* step copy, footer links */
+  --quiet: #9B9B9B;      /* hero sub, small captions */
+  --line: #F4F4F4;       /* nav 2px line, row dividers, section borders */
+  --well: #F7F7F7;       /* footer */
+  --ring: #E6E6E6;       /* avatar ring (lab 91.6) */
+  --green: #009D55; --green-bg: #EBFAF4;
+  --bg: #fff;            /* page, nav, cards */
+  --strong: #000;        /* big headings */
+  --chev: #bfbfbf;       /* chevrons, crumb arrows */
+  --ul: #cfcfcf;         /* link underlines */
+  --btn-bg: #121212; --btn-ink: #fff; --btn-hover: #000;
+  --frame: #fff;         /* screenshot bezel */
+  --gutter: 80px;
+  --sans: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+/* dark mode (Brandon 10-30): follows the computer unless the visitor picks with the toggle */
+:root[data-theme=dark] {
+  --ink: #e6e6e6; --h1: #f2f2f2; --black: #f4f4f4; --body: #a6a6a6; --quiet: #8a8a8a;
+  --line: #1f1f22; --well: #141416; --ring: #2c2c30; --green: #3ddc84; --green-bg: rgba(61,220,132,.12);
+  --bg: #0b0b0c; --strong: #fff; --chev: #5a5a60; --ul: #4a4a50;
+  --btn-bg: #f4f4f4; --btn-ink: #121212; --btn-hover: #fff; --frame: #1a1a1d;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--bg); color: var(--ink); }
-body { font: 16px/1.55 "Inter Tight", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-       -webkit-font-smoothing: antialiased; }
-a { color: inherit; }
-.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body { margin: 0 auto; max-width: 1440px; background: var(--bg); color: var(--ink);
+  font: 400 16px/24px var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; padding-top: 96px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, p { margin: 0; }
+.wrap { padding: 0 var(--gutter); }
+.phone-only, .btn.phone-only { display: none; }
+html:not(.phone) .phone-only { display: none !important; }
+html.phone .phone-only { display: block; }
+html.phone .btn.phone-only { display: inline-flex; }
+html.phone .desk-only { display: none !important; }
 
-/* top bar */
-.top { border-bottom: 1px solid var(--line-soft); }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.mark { display: inline-block; text-decoration: none; font-weight: 800; white-space: nowrap;
-        font-size: 28px; letter-spacing: -1.4px; color: var(--ink); }
-.mark b { color: var(--lime); font-weight: 800; }
-.mark span { color: var(--dim); font-weight: 600; font-size: 15px; letter-spacing: 1.5px; margin-left: 10px; }
-.top a.plain { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
-.top a.plain:hover { color: var(--ink); }
+/* ---- nav: fixed, 96px, 2px #F4F4F4 line, 80px side padding ---- */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; margin: 0 auto; max-width: 1440px; height: 96px;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 var(--gutter);
+  background: var(--bg); border-bottom: 2px solid var(--line); }
+.mark { display: flex; align-items: center; gap: 7px; color: var(--ink); }
+.mark svg { width: 20px; height: 20px; }
+.mark span { font-size: 20px; line-height: 22px; font-weight: 700; letter-spacing: -0.4px; }
+.nav .right { display: flex; align-items: center; gap: 24px; font-size: 14px; line-height: 21px; font-weight: 500; letter-spacing: -0.28px; }
+.nav .right .plain { color: var(--black); padding: 10px 20px; border-radius: 9999px; }
+.nav .right .plain:hover { background: var(--well); }
+.theme-toggle { width: 40px; height: 40px; border-radius: 9999px; display: grid; place-items: center; color: var(--black); }
+.theme-toggle:hover { background: var(--well); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .sun, :root[data-theme=dark] .theme-toggle .moon { display: none; }
+:root[data-theme=dark] .theme-toggle .sun { display: block; }
 
-/* hero */
-.hero { position: relative; overflow: hidden; }
-.hero::after { content: ""; position: absolute; left: 50%; bottom: -260px; width: 1100px; height: 420px;
-               transform: translateX(-50%); pointer-events: none;
-               background: radial-gradient(closest-side, rgba(181,246,74,.16), rgba(181,246,74,0)); }
-.hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 40px; text-align: center; }
-h1 { margin: 0; font-size: clamp(46px, 8vw, 92px); line-height: .98; letter-spacing: -3.5px; font-weight: 800; }
-h1 em { font-style: normal; color: var(--lime); display: block; }
-.lede { margin: 22px auto 0; max-width: 560px; color: var(--muted); font-size: 19px; }
+/* ---- pill buttons (nav: 14px/500, 10px 20px; hero: 16px/700, 16px 32px, 56px tall) ---- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;
+  background: var(--btn-bg); color: var(--btn-ink); border-radius: 9999px; padding: 10px 20px;
+  font-size: 14px; line-height: 21px; font-weight: 500; letter-spacing: -0.28px; transition: background .15s ease, transform .15s ease; }
+.btn:hover { background: var(--btn-hover); }
+.btn:active { transform: scale(.98); }
+.btn.lg { padding: 16px 32px; font-size: 16px; line-height: 24px; font-weight: 700; letter-spacing: 0; }
+.btn svg { width: 16px; height: 16px; flex: none; }
 
-.downloads { display: flex; justify-content: center; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
-.dl { display: flex; align-items: center; gap: 14px; min-width: 270px; padding: 16px 20px; border-radius: 12px;
-      text-decoration: none; border: 1px solid var(--line); background: var(--panel); text-align: left;
-      transition: background .15s, border-color .15s, color .15s, transform .15s; }
-.dl:hover { background: var(--lime); border-color: var(--lime); color: var(--lime-ink); transform: translateY(-1px); }
-.dl:hover small { color: #3d5a1a; }
-.dl svg { width: 26px; height: 26px; flex: none; }
-.dl b { display: block; font-size: 17px; font-weight: 700; letter-spacing: -.2px; }
-.dl small { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
-.dl small.ver { font-size: 12px; opacity: .6; margin-top: 3px; }
-.dl small.ver:empty { display: none; }
-.dl .go { margin-left: auto; font-size: 20px; opacity: .7; }
-.dl.primary { background: var(--lime); border-color: var(--lime); color: var(--lime-ink); }
-.dl.primary small { color: #3d5a1a; }
-.dl.primary:hover { border-color: var(--lime); background: #c2fb63; }
-.license-line { margin-top: 18px; font-size: 14px; color: var(--dim); }
-.license-line a { color: var(--muted); }
+/* ---- hero ---- */
+.hero { position: relative; display: flex; flex-direction: column; align-items: center; overflow: hidden; padding-top: 20px; min-height: 1159px; }
+.appicon { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.appicon .tile { width: 84px; height: 84px; border-radius: 20px; background: var(--btn-bg); display: grid; place-items: center; }
+.appicon .tile svg { width: 52px; height: 52px; }
+.appicon p { font-size: 18px; line-height: 28px; font-weight: 700; letter-spacing: -0.36px; color: var(--h1); }
+.hero h1 { padding: 32px 0 16px; text-align: center; font-weight: 700; color: var(--h1);
+  font-size: clamp(35px, 3.524vw + 21.26px, 72px); line-height: 1.5; letter-spacing: -1.44px; }
+.hero .sub { text-align: center; color: var(--quiet); font-weight: 500; font-size: clamp(13.5px, 0.235vw + 12.6px, 16px); line-height: 1.5; max-width: 560px; padding: 0 16px; }
 
-.shot { position: relative; z-index: 1; margin: 56px auto 0; max-width: 980px; }
-.shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+.dl-row { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+.dl { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.dl .btn.lg { width: 228px; }
+.dl .meta { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--quiet); }
+.which { margin-top: 20px; font-size: 13px; line-height: 20px; letter-spacing: -0.26px; color: var(--quiet); text-align: center; padding: 0 16px; }
+.which b { font-weight: 500; color: var(--body); }
+.premium { margin-top: 22px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 0 16px; }
+.premium .tag { background: var(--green-bg); color: var(--green); font-weight: 700; font-size: 14px; line-height: 20px; letter-spacing: -0.28px; padding: 0 4px; }
+.premium a { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--black); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ul); }
+.premium a:hover { text-decoration-color: var(--black); }
 
-/* sections */
-section.block { border-top: 1px solid var(--line-soft); padding: 72px 0; }
-.label { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: var(--lime); }
-h2 { margin: 10px 0 0; font-size: clamp(30px, 4.4vw, 44px); letter-spacing: -1.4px; line-height: 1.05; font-weight: 800; }
-.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px;
-         border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-.step { padding: 26px 26px 30px; background: var(--panel); }
-.step + .step { border-left: 1px solid var(--line); }
-.step .n { font-size: 15px; font-weight: 800; color: var(--lime); }
-.step h3 { margin: 12px 0 8px; font-size: 21px; letter-spacing: -.4px; }
-.step p { margin: 0; color: var(--muted); font-size: 15.5px; }
+/* phone handoff (copied behaviour from final-3) */
+.handoff { display: none; flex-direction: column; align-items: center; gap: 12px; margin-top: 24px; padding: 0 16px; width: 100%; }
+html.phone .handoff { display: flex; }
+.handoff .note { font-size: 14px; line-height: 20px; color: var(--quiet); font-weight: 500; letter-spacing: -0.28px; text-align: center; }
+.handoff .copied { display: none; font-size: 14px; line-height: 20px; color: var(--green); font-weight: 500; letter-spacing: -0.28px; text-align: center; }
+.handoff .fallback { display: none; width: 100%; max-width: 360px; }
+.handoff .fallback input { width: 100%; margin-top: 8px; border: 1px solid var(--ring); border-radius: 9999px; padding: 10px 16px; font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); }
+.handoff.ok .copied { display: block; } .handoff.ok .note { display: none; }
+.handoff.fail .fallback { display: block; }
+.dl-toggle { margin-top: 4px; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--body); display: inline-flex; align-items: center; gap: 6px; }
+.dl-toggle .chev { width: 14px; height: 14px; transition: transform .2s; }
+html.phone .collapsible { display: none; }
+html.phone .dlbox.open .collapsible { display: block; }
+html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
+.dlbox { display: flex; flex-direction: column; align-items: center; width: 100%; }
 
-.notes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 40px; }
-.note { border: 1px solid var(--line); border-radius: 14px; padding: 24px 26px; }
-.note h3 { margin: 0 0 10px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-.note h3 svg { width: 20px; height: 20px; }
-.note ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 15.5px; }
-.note li + li { margin-top: 6px; }
-.note b { color: var(--ink); font-weight: 600; }
+/* ---- the app, in Autopilot's row-of-screens presentation ---- */
+.screens { margin-top: 64px; width: 100%; display: flex; align-items: flex-start; justify-content: center; gap: 24px; padding-bottom: 56px; }
+.screen { flex: none; background: var(--frame); border-radius: 36px; padding: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.06), 0 24px 48px -12px rgba(0,0,0,.18); overflow: hidden; }
+.screen .pic { position: relative; overflow: hidden; border-radius: 28px; background: #08090a; }
+.screen img { position: absolute; max-width: none; }
+.screen.side { width: 340px; }
+.screen.side .pic { width: 320px; height: 605px; }
+.screen.side img { height: 605px; width: auto; top: 0; }
+.screen.side.l img { left: 0; }
+.screen.side.r img { right: 0; }
+.screen.down { transform: translateY(56px); }
+.screen.up { transform: none; }
+.screen.main { width: 940px; border-radius: 24px; }
+.screen.main .pic { width: 920px; height: auto; border-radius: 16px; }
+.screen.main img { position: static; width: 100%; height: auto; }
+.screens-cap { margin-top: 0; font-size: 13px; line-height: 20px; letter-spacing: -0.26px; color: var(--quiet); text-align: center; }
+.screens-cap a { color: var(--body); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ul); }
 
-.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 40px; margin-top: 40px; }
-.fact h3 { margin: 0 0 6px; font-size: 17px; }
-.fact p { margin: 0; color: var(--muted); font-size: 15px; }
+/* ---- section headers (Featured / Top Performers / Pilots pattern) ---- */
+.sec-h { font-size: clamp(18px, 0.571vw + 15.8px, 24px); line-height: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); }
+.sec-sub { font-size: clamp(12px, 0.19vw + 11.26px, 14px); line-height: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--quiet); margin-top: 8px; }
 
-footer { border-top: 1px solid var(--line-soft); padding: 34px 0 48px; color: var(--dim); font-size: 14px; }
-footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-footer a { color: var(--muted); }
+/* Featured cards: 320 square cells, 8px radius image, white title at the bottom */
+.featured { display: flex; flex-direction: column; margin-top: 72px; }
+.featured .sec-h { padding-left: var(--gutter); }
+.cards { display: flex; align-items: center; overflow-x: auto; padding: 8px 0 8px var(--gutter); scrollbar-width: none; }
+.cards::-webkit-scrollbar { display: none; }
+.card { flex: none; width: 320px; height: 320px; padding: 20px 20px 20px 0; }
+.card .fig { position: relative; width: 100%; height: 100%; border-radius: 8px; overflow: hidden; background: #08090a; }
+.card .fig img { position: absolute; max-width: none; }
+.card .fig::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 24%, rgba(0,0,0,.7) 54%, rgba(0,0,0,.95) 72%, rgba(0,0,0,.97) 100%); }
+.card .txt { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; color: #fff; }
+.card .badge { display: inline-block; width: min-content; white-space: nowrap; border-radius: 2px; border: 1px solid rgba(255,255,255,.04); background: rgba(0,0,0,.12); backdrop-filter: blur(2px);
+  padding: 4px 8px; font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: -0.24px; margin-bottom: 8px; }
+.card .t { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.48px; }
+.card .s { font-size: 14px; line-height: 20px; letter-spacing: -0.28px; color: rgba(255,255,255,.8); font-weight: 500; margin-top: 2px; }
+.card .s span { color: rgba(255,255,255,.6); font-weight: 400; padding-right: 6px; }
 
-@media (max-width: 820px) {
-  .hero .wrap { padding-top: 56px; }
-  h1 { letter-spacing: -2px; }
-  .steps, .notes, .facts { grid-template-columns: 1fr; }
-  .step + .step { border-left: 0; border-top: 1px solid var(--line); }
-  .dl { min-width: 0; width: 100%; }
-  section.block { padding: 52px 0; }
+/* Two-column list (Top Performers / Popular pattern) */
+.lists { margin-top: 64px; padding: 0 var(--gutter) 64px; display: flex; justify-content: space-between; gap: 24px 100px; flex-wrap: wrap; }
+.list { flex: 1; min-width: 320px; display: flex; flex-direction: column; gap: 21px; }
+.list .head { display: flex; align-items: center; gap: 12px; height: 32px; }
+.rows li { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.rows li:first-child { border-top: 1px solid var(--line); }
+.row-l { display: flex; align-items: center; gap: 20px; padding: 4px 0 4px 4px; min-width: 0; }
+.avatar { width: 90px; height: 90px; border-radius: 40px; border: 1px solid var(--ring); background: var(--well); display: grid; place-items: center;
+  font-size: 30px; font-weight: 700; letter-spacing: -0.6px; color: var(--black); flex: none; }
+.rows .t { font-size: clamp(18px, 0.571vw + 15.8px, 24px); line-height: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); }
+.rows .s { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--quiet); }
+.rows .chev { width: 20px; height: 20px; color: var(--chev); flex: none; }
+
+/* ---- How it works: bordered band, 120px padding, 64px title, stacked steps ---- */
+.how { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 80px; padding: 120px 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.how h2 { text-align: center; font-weight: 700; color: var(--strong); font-size: clamp(31px, 3.143vw + 18.7px, 64px); line-height: 1.2; letter-spacing: -0.02em; }
+.steps { display: flex; flex-direction: column; align-items: center; gap: 80px; }
+.step { display: flex; flex-direction: column; align-items: center; gap: 28px; width: 356px; max-width: 100%; }
+.step .shot { width: 356px; max-width: 100%; height: 138px; background: var(--bg); border: 1px solid var(--line); border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 24px -8px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; gap: 16px; padding: 20px 24px; }
+.step .shot .ico { width: 56px; height: 56px; border-radius: 9999px; border: 1px solid var(--ring); background: var(--bg); display: grid; place-items: center; color: var(--black); }
+.step .shot .ico svg { width: 26px; height: 26px; }
+.step .shot .ico.dark { background: var(--btn-bg); color: var(--btn-ink); border-color: var(--btn-bg); }
+.step .shot .lines { display: flex; flex-direction: column; gap: 2px; text-align: left; min-width: 0; }
+.step .shot .lines b { font-size: 20px; line-height: 28px; font-weight: 700; letter-spacing: -0.4px; color: var(--strong); white-space: nowrap; }
+.step .shot .lines span { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--quiet); white-space: nowrap; }
+.step .shot .crumbs { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.step .shot .crumbs i { font-style: normal; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--black); background: var(--well); border: 1px solid var(--line); border-radius: 9999px; padding: 4px 10px; }
+.step .shot .crumbs i.key { background: var(--btn-bg); color: var(--btn-ink); border-color: var(--btn-bg); }
+.step .shot .crumbs em { font-style: normal; color: var(--chev); }
+.step .shot .brokers { display: flex; align-items: center; gap: 10px; }
+.step .shot .brokers i { font-style: normal; width: 44px; height: 44px; border-radius: 9999px; border: 1px solid var(--ring); background: var(--well); display: grid; place-items: center; font-weight: 700; font-size: 17px; letter-spacing: -0.3px; color: var(--black); }
+.step .shot .brokers .plus { width: 44px; height: 44px; border-radius: 9999px; background: var(--btn-bg); color: var(--btn-ink); display: grid; place-items: center; }
+.step .shot .brokers .plus svg { width: 18px; height: 18px; }
+.step .words { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+.step h3 { font-weight: 700; color: var(--strong); font-size: clamp(17.5px, 0.238vw + 16.6px, 20px); line-height: 1.5; letter-spacing: -0.02em; }
+.step p { color: var(--body); font-size: clamp(13.5px, 0.235vw + 12.6px, 16px); line-height: 1.5; letter-spacing: -0.02em; }
+.step p b { font-weight: 500; color: var(--black); }
+
+/* ---- Installation help: list rows with disclosures ---- */
+.help { padding: 64px var(--gutter); display: flex; flex-direction: column; gap: 21px; }
+.help details { border-bottom: 1px solid var(--line); }
+.help details:first-of-type { border-top: 1px solid var(--line); }
+.help summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 20px 0; gap: 20px; }
+.help summary::-webkit-details-marker { display: none; }
+.help .row-l .avatar { width: 60px; height: 60px; border-radius: 30px; font-size: 22px; }
+.help .row-l .avatar svg { width: 26px; height: 26px; }
+.help summary .chev { width: 20px; height: 20px; color: var(--chev); flex: none; transition: transform .2s; }
+.help details[open] summary .chev { transform: rotate(90deg); }
+.help ol { margin: 0; padding: 0 0 24px 110px; display: flex; flex-direction: column; gap: 10px; color: var(--body); font-size: 16px; line-height: 24px; letter-spacing: -0.32px; max-width: 760px; }
+.help ol b { font-weight: 500; color: var(--black); }
+
+/* ---- footer: #F7F7F7, 68px 80px ---- */
+footer { background: var(--well); padding: 68px var(--gutter); display: flex; flex-direction: column; }
+footer .brand { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.96px; color: var(--strong); padding-bottom: 32px; }
+footer .cols { display: flex; gap: 24px; }
+footer .col { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+footer h3 { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: -0.32px; color: var(--strong); }
+footer .col a, footer .col span.l { font-size: 16px; line-height: 24px; letter-spacing: -0.32px; color: var(--body); display: block; }
+footer .col a:hover { color: var(--strong); }
+footer hr { border: 0; border-top: 1px solid var(--ring); margin: 44px 0 32px; }
+footer .fine { display: flex; flex-direction: column; gap: 8px; color: var(--quiet); font-weight: 300; font-size: 13px; line-height: 20px; letter-spacing: -0.26px; }
+footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---- phone (Autopilot: nav 72px, 16px gutters, 200px screens) ---- */
+@media (max-width: 1023px) {
+  :root { --gutter: 16px; }
+  body { padding-top: 72px; }
+  .nav { height: 72px; }
+  .nav .right { font-size: clamp(11.6px, 0.228vw + 10.7px, 14px); gap: 12px; }
+  .nav .right .plain { padding: 8px 12px; }
+  .mark span { font-size: 17px; line-height: 20px; }
+  .hero { min-height: 0; padding-bottom: 24px; }
+  .hero h1 { padding: 8px 16px; }
+  .btn.lg { padding: 12px 24px; font-size: 14.5px; line-height: 22px; gap: 8px; }
+  .dl-row { margin-top: 16px; flex-direction: column; align-items: center; gap: 16px; }
+  .dl .btn.lg { width: 240px; }
+  .screens { margin-top: 48px; flex-wrap: wrap; gap: 12px; padding: 0 16px 8px; }
+  .screen.main { width: 100%; border-radius: 16px; padding: 6px; order: 0; }
+  .screen.main .pic { width: 100%; border-radius: 10px; }
+  .screen.side { width: calc(50% - 6px); border-radius: 20px; padding: 6px; transform: none; }
+  .screen.side .pic { width: 100%; height: 300px; border-radius: 14px; }
+  .screen.side img { height: 300px; }
+  .screen.side.l { order: 1; } .screen.side.r { order: 2; }
+  .lists { margin-top: 48px; padding-bottom: 48px; gap: 40px; }
+  .rows li { padding: 16px 0; }
+  .avatar { width: 72px; height: 72px; border-radius: 36px; font-size: 26px; }
+  .how { gap: 48px; padding: 64px 16px; }
+  .steps { gap: 48px; }
+  .help { padding: 48px var(--gutter); }
+  .help ol { padding-left: 0; }
+  footer { padding: 40px var(--gutter); }
+  footer .cols { flex-direction: column; gap: 32px; }
 }
+@media (max-width: 420px) { .nav .right .plain { padding: 8px 6px; } }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap">
-    <a class="mark" href="./" aria-label="RSA by Nine2Five">Nine<b>2</b>Five<span>RSA</span></a>
-    <a class="plain" href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+<nav class="nav">
+  <a class="mark" href="./" aria-label="The Nine2Five bot">
+    <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="8" style="fill:var(--btn-bg)"/><path d="M9 7h13l-4.6 8.4H27L13.5 31l2.8-11.2H7z" style="fill:var(--btn-ink)"/></svg>
+    <span>Nine2Five</span>
+  </a>
+  <div class="right">
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch light or dark mode" title="Light / dark mode">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+    </button>
+    <a class="plain" href="https://whop.com/ninetwofive/">Get Premium</a>
+    <a class="btn desk-only" href="#download">Download</a>
+    <button class="btn phone-only" type="button" data-copy-link>Copy Download Link</button>
   </div>
-</header>
+</nav>
 
 <main>
-  <div class="hero">
-    <div class="wrap">
-      <h1>One trade.<em>Every account.</em></h1>
-      <p class="lede">RSA sends one order to every account you hold at Robinhood, Public, Fennel, Fidelity, Schwab, SoFi, Webull, WellsTrade, TastyTrade and Aries, and tells you what happened at each one.</p>
-
-      <div class="downloads">
-        <a class="dl" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac-apple-silicon.dmg">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
-          <span><b>Mac, Apple Silicon</b><small id="mac-meta">M1 and newer</small><small class="ver" id="mac-ver"></small></span>
-          <span class="go" aria-hidden="true">&rarr;</span>
-        </a>
-        <a class="dl" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-mac-intel.dmg">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>
-          <span><b>Mac, Intel</b><small id="mac-intel-meta">Older Macs</small><small class="ver" id="mac-intel-ver"></small></span>
-          <span class="go" aria-hidden="true">&rarr;</span>
-        </a>
-        <a class="dl" id="dl-win" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-windows-setup.exe">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>
-          <span><b>Windows</b><small id="win-meta">Windows 10 and 11</small><small class="ver" id="win-ver"></small></span>
-          <span class="go" aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-      <p class="license-line">Which Mac? Apple menu, About This Mac: "Chip" means Apple Silicon, "Processor" means Intel.</p>
-      <p class="license-line">Free to download. Opening it needs a Nine2Five Premium license key. <a href="https://whop.com/ninetwofive/">Get one on Whop</a>.</p>
-
-      <div class="shot"><img src="hero.jpg" width="1960" height="1070" alt="The RSA window: one buy filled in all seven accounts across Robinhood, Public and Fidelity."></div>
+  <section class="hero" id="download">
+    <div class="appicon">
+      <div class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M9 5h14l-5 9h11L13 32l3-12H6z" style="fill:var(--btn-ink)"/></svg></div>
+      <p>Nine2Five</p>
     </div>
-  </div>
+    <h1>One Play. All Your Accounts.</h1>
+    <p class="sub">When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you have, in seconds.</p>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="label">GET STARTED</div>
-      <h2>Three Steps</h2>
-      <div class="steps">
-        <div class="step"><div class="n">01</div><h3>Download and Open</h3><p>Pick your computer above and run the installer. The first open has one extra click, shown below.</p></div>
-        <div class="step"><div class="n">02</div><h3>Paste Your License Key</h3><p>On Whop, open Orders, then Nine2Five Premium, and copy the key. Paste it once. RSA remembers it.</p></div>
-        <div class="step"><div class="n">03</div><h3>Add Your Brokers</h3><p>In Accounts, press Add on each brokerage. Your logins stay on your computer and never leave it.</p></div>
+    <div class="dlbox" id="dlbox">
+      <!-- phone: hand the page to a computer instead of offering desktop installers -->
+      <div class="handoff" id="handoff">
+        <button class="btn lg" type="button" data-copy-link>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Download Link
+        </button>
+        <p class="note">Open this link on your Mac or Windows computer.</p>
+        <p class="copied" role="status"><b>Link copied.</b> Open it on your Mac or Windows computer.</p>
+        <div class="fallback"><label class="note" for="dl-url">Copying didn't work. Select and copy this link:</label><input id="dl-url" type="text" readonly value="https://p4rk3rs.github.io/rsa-download/"></div>
+        <button class="dl-toggle" type="button" aria-expanded="false" aria-controls="dl-list">View Desktop Downloads
+          <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+      </div>
+
+      <div class="collapsible" id="dl-list">
+        <div class="dl-row" id="downloads">
+          <div class="dl">
+            <a class="btn lg" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.1.8-mac-apple-silicon.dmg">Apple Silicon Mac
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
+            <span class="meta"><span id="mac-ver">Version 1.1.8</span> &middot; <span id="mac-meta">117 MB</span></span>
+          </div>
+          <div class="dl">
+            <a class="btn lg" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.1.8-mac-intel.dmg">Intel Mac
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
+            <span class="meta"><span id="mac-intel-ver">Version 1.1.8</span> &middot; <span id="mac-intel-meta">131 MB</span></span>
+          </div>
+          <div class="dl">
+            <a class="btn lg" id="dl-win" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.1.8-windows-setup.exe">Windows
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
+            <span class="meta"><span id="win-ver">Version 1.1.8</span> &middot; <span id="win-meta">69 MB</span></span>
+          </div>
+        </div>
+        <p class="which">Which Mac? Apple menu, <b>About This Mac</b>: <b>Chip</b> = Apple Silicon, <b>Processor</b> = Intel.</p>
+      </div>
+
+      <div class="premium">
+        <span class="tag">Included with Nine2Five Premium &middot; $50.00/month</span>
+        <a href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+      </div>
+    </div>
+
+    <!-- the app, where Autopilot shows its row of phone screens -->
+    <div class="screens" aria-label="Our bot, demo shown">
+      <div class="screen side l down"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Left side of our bot: the sidebar with Auto-Send, Home, Accounts, History, and the Brokerages list."></div></div>
+      <div class="screen main up"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Our bot: the Home screen with a buy filled in all seven accounts across Robinhood, Public and Fidelity, with the New Order panel open."></div></div>
+      <div class="screen side r down"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Right side of our bot: the New Order panel with Buy, Symbol, Shares per Account and the accounts it will send to."></div></div>
+    </div>
+    <p class="screens-cap">Demo shown. <a href="hero.jpg" target="_blank" rel="noopener">Open full size</a></p>
+  </section>
+
+  <!-- Featured-card pattern: what the bot does, each on a crop of the real screen -->
+  <section class="featured">
+    <h2 class="sec-h">What our bot does</h2>
+    <ul class="cards">
+      <li class="card"><div class="fig">
+        <img src="hero.jpg" alt="" style="width:1176px;left:-156px;top:-198px">
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Every account at once</p><p class="s"><span>One order,</span>seven accounts, all filled</p></div>
+      </div></li>
+      <li class="card"><div class="fig">
+        <img src="hero.jpg" alt="" style="width:2509px;left:0;top:-26px">
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Auto-Send, your limits</p><p class="s"><span>Only while</span>the bot is open and connected</p></div>
+      </div></li>
+      <li class="card"><div class="fig">
+        <img src="hero.jpg" alt="" style="width:2156px;left:0;top:-975px">
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Logins stay on your computer</p><p class="s"><span>Sent only</span>to your brokerage</p></div>
+      </div></li>
+      <li class="card"><div class="fig">
+        <img src="hero.jpg" alt="" style="width:2117px;left:-1818px;top:-86px">
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">One order form</p><p class="s"><span>Set it once,</span>send it to every selected account</p></div>
+      </div></li>
+    </ul>
+  </section>
+
+  <!-- Two-column list pattern: the ten brokerages -->
+  <section class="lists" id="brokerages">
+    <div class="list">
+      <div class="head"><h2 class="sec-h">Works with ten brokerages</h2></div>
+      <ul class="rows">
+        <li><div class="row-l"><div class="avatar">R</div><div><p class="t">Robinhood</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">P</div><div><p class="t">Public</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">F</div><div><p class="t">Fennel</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">Fi</div><div><p class="t">Fidelity</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">S</div><div><p class="t">Schwab</p><p class="s">Sign in the way you always do</p></div></div></li>
+      </ul>
+    </div>
+    <div class="list">
+      <div class="head"><h2 class="sec-h">Add them from Accounts</h2></div>
+      <ul class="rows">
+        <li><div class="row-l"><div class="avatar">So</div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">W</div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">WT</div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Through TastyTrade's API</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Through TradeStation's API</p></div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- How it works pattern: three setup steps -->
+  <section class="how" id="setup">
+    <h2>How it works.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="shot">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg></div>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg></div>
+          <div class="lines"><b>Mac or Windows</b><span>Open the file you downloaded</span></div>
+        </div>
+        <div class="words"><h3>Download and Open</h3><p>Pick your computer above. The bot opens like any other app.</p></div>
+      </div>
+      <div class="step">
+        <div class="shot">
+          <div class="crumbs"><i>Whop</i><em>&rsaquo;</em><i>Orders</i><em>&rsaquo;</em><i>Nine2Five Premium</i><em>&rsaquo;</em><i class="key">Copy key</i></div>
+        </div>
+        <div class="words"><h3>Paste Your License Key</h3><p>In <b>Whop</b>, open <b>Orders</b>, then <b>Nine2Five Premium</b>, and copy the key. Paste it into the bot.</p></div>
+      </div>
+      <div class="step">
+        <div class="shot">
+          <div class="brokers"><i>R</i><i>P</i><i>Fi</i><span class="plus"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></span></div>
+        </div>
+        <div class="words"><h3>Add Your Brokers</h3><p>Go to <b>Accounts</b> and press <b>Add</b> on each brokerage. Sign in the way you always do.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="label">FIRST OPEN</div>
-      <h2>Your Computer Will Ask Once</h2>
-      <div class="notes">
-        <div class="note">
-          <h3><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>Mac</h3>
-          <ol>
-            <li>Open the downloaded file, then drag <b>RSA</b> onto the <b>Applications</b> folder next to it.</li>
-            <li>Open it. If macOS says it can't check the app, open <b>System Settings</b>, then <b>Privacy &amp; Security</b>, and press <b>Open Anyway</b>.</li>
-            <li>If macOS asks to let RSA <b>find devices on local networks</b>, either answer is fine.</li>
-            <li>After that it opens like any other app.</li>
-          </ol>
-        </div>
-        <div class="note">
-          <h3><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg>Windows</h3>
-          <ol>
-            <li>Open the downloaded setup file. If a blue SmartScreen box appears, press <b>More info</b>, then <b>Run anyway</b>.</li>
-            <li>Press <b>Next</b> through the installer. No admin password needed.</li>
-            <li>RSA is now in the Start menu (and on the desktop, if you ticked that box).</li>
-          </ol>
-        </div>
-      </div>
+  <!-- Installation help, in the list-row pattern -->
+  <section class="help" id="install">
+    <div>
+      <h2 class="sec-h">Installation help</h2>
+      <p class="sec-sub">Need a hand installing? Open the steps for your computer.</p>
     </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="label">GOOD TO KNOW</div>
-      <h2>Before You Trade</h2>
-      <div class="facts">
-        <div class="fact"><h3>Hands-Off Once It's On</h3><p>Turn on Auto-Send once and set your limits. While RSA is open and connected, a fresh ping that fits your limits goes to your signed-in accounts by itself, after a short countdown you can stop. Anything else waits for you to review.</p></div>
-        <div class="fact"><h3>Google Chrome Needed</h3><p>Fidelity, Schwab, SoFi, Webull and WellsTrade sign in through your installed Chrome, in their own windows.</p></div>
-        <div class="fact"><h3>Your Colors</h3><p>Settings has six colorways, each in light and dark, or pick your own. Only the colors change.</p></div>
-        <div class="fact"><h3>One Key, One Computer</h3><p>Moving to a new computer? Press Reset License Key in your Whop orders, then paste the key there.</p></div>
-      </div>
+    <div>
+      <details id="help-mac">
+        <summary>
+          <div class="row-l"><div class="avatar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9s-2-.9-3.3-.9C6.1 7 4.5 8 3.6 9.6c-1.8 3.2-.5 7.9 1.3 10.4.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.8-4.6zM13.9 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg></div>
+            <div><p class="t rows-t" style="font-size:clamp(18px,0.571vw + 15.8px,24px);line-height:32px;font-weight:700;letter-spacing:-0.02em;color:var(--black)">On a Mac</p><p class="s" style="font-size:14px;line-height:20px;font-weight:500;letter-spacing:-0.28px;color:var(--quiet)">Three steps</p></div></div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </summary>
+        <ol>
+          <li>Open the file you downloaded. Drag the bot's icon onto the <b>Applications</b> folder next to it.</li>
+          <li>Open it. If your Mac says it can't check the app, open <b>System Settings</b>, then <b>Privacy &amp; Security</b>, scroll down and press <b>Open Anyway</b>.</li>
+          <li>If your Mac asks to let the bot <b>find devices on local networks</b>, either answer is fine.</li>
+        </ol>
+      </details>
+      <details id="help-win">
+        <summary>
+          <div class="row-l"><div class="avatar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg></div>
+            <div><p class="t" style="font-size:clamp(18px,0.571vw + 15.8px,24px);line-height:32px;font-weight:700;letter-spacing:-0.02em;color:var(--black)">On Windows</p><p class="s" style="font-size:14px;line-height:20px;font-weight:500;letter-spacing:-0.28px;color:var(--quiet)">Three steps</p></div></div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </summary>
+        <ol>
+          <li>Open the setup file you downloaded. If a blue box pops up, press <b>More info</b>, then <b>Run anyway</b>.</li>
+          <li>Press <b>Next</b> until it finishes. No admin password needed.</li>
+          <li>The bot is now in your Start menu, and on your desktop if you ticked that box.</li>
+        </ol>
+      </details>
     </div>
   </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span id="version-line">RSA by Nine2Five</span>
-    <span>Not investment advice. You set the limits; RSA trades within them. <a href="https://whop.com/ninetwofive/">Nine2Five on Whop</a></span>
+  <div class="brand">Nine2Five</div>
+  <div class="cols">
+    <div class="col">
+      <h3>Download</h3>
+      <a class="desk-only" href="#download">Apple Silicon Mac</a>
+      <a class="desk-only" href="#download">Intel Mac</a>
+      <a class="desk-only" href="#download">Windows</a>
+      <span class="l phone-only">Open this page on your Mac or Windows computer to download.</span>
+      <a href="#install">Installation help</a>
+    </div>
+    <div class="col">
+      <h3>Nine2Five</h3>
+      <a href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+      <a href="#brokerages">Brokerages</a>
+      <a href="#setup">How it works</a>
+    </div>
+  </div>
+  <hr>
+  <div class="fine">
+    <p><span id="version-line">Version 1.1.8</span> &mdash; Mac and Windows.</p>
+    <p>Not investment advice. You set the limits; our bot trades within them. <a href="https://whop.com/ninetwofive/">Nine2Five on Whop</a></p>
   </div>
 </footer>
 
@@ -206,7 +479,7 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
   if (!v) return;
   // each computer's own version (Mac and Windows can be a release apart); older files only say "version"
   const mac = v.mac_version || v.version, win = v.win_version || v.version;
-  if (mac && mac === win) document.getElementById("version-line").textContent = "RSA " + mac + " by Nine2Five";
+  if (mac && mac === win) document.getElementById("version-line").textContent = "Version " + mac;
   if (mac) document.getElementById("mac-ver").textContent = document.getElementById("mac-intel-ver").textContent = "Version " + mac;
   if (win) document.getElementById("win-ver").textContent = "Version " + win;
   // download the file named with its version (RSA-1.1.2-mac-apple-silicon.dmg), so a second
@@ -215,18 +488,54 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
   [["dl-mac", f.apple_silicon], ["dl-mac-intel", f.intel], ["dl-win", f.windows]].forEach(([id, name]) => {
     if (name && /^RSA-[\w.-]+$/.test(name)) document.getElementById(id).href = latest + name;
   });
-  if (v.mac_mb) document.getElementById("mac-meta").textContent = "M1 and newer · " + v.mac_mb + " MB";
-  if (v.mac_intel_mb) document.getElementById("mac-intel-meta").textContent = "Older Macs · " + v.mac_intel_mb + " MB";
-  if (v.win_mb) document.getElementById("win-meta").textContent = "Windows 10 and 11 · " + v.win_mb + " MB";
+  if (v.mac_mb) document.getElementById("mac-meta").textContent = v.mac_mb + " MB";
+  if (v.mac_intel_mb) document.getElementById("mac-intel-meta").textContent = v.mac_intel_mb + " MB";
+  if (v.win_mb) document.getElementById("win-meta").textContent = v.win_mb + " MB";
 }).catch(() => {});
-// Put the visitor's own computer first and in lime (browsers don't say which Mac chip;
-// Apple Silicon is the likely one, Intel stays right next to it).
+
+// Put the visitor's own computer first. All three buttons look the same; only the order changes.
+// Browsers don't say which Mac chip, so Apple Silicon leads and Intel stays right next to it.
 (function () {
   const ua = navigator.userAgent || "", mac = /Macintosh|Mac OS X/.test(ua), win = /Windows/.test(ua);
-  const first = document.getElementById(win ? "dl-win" : "dl-mac");
-  if (mac || win) { first.classList.add("primary"); first.parentNode.prepend(first); }
-  if (mac) first.after(document.getElementById("dl-mac-intel"));
+  const first = document.getElementById(win ? "dl-win" : "dl-mac"), block = first.closest(".dl");
+  if (mac || win) block.parentNode.prepend(block);
+  if (mac) block.after(document.getElementById("dl-mac-intel").closest(".dl"));
 })();
+
+// Phone visitors get a link to open on a computer instead of installers. A phone is a phone by its
+// user agent or a touch-only pointer on a narrow screen; a narrow desktop window keeps the downloads.
+(function () {
+  const ua = navigator.userAgent || "";
+  const phoneUA = /iPhone|iPod|Android.*Mobile|Windows Phone/i.test(ua);
+  const coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
+  if (phoneUA || (coarse && window.innerWidth < 760)) document.documentElement.classList.add("phone");
+
+  const URL_ = "https://p4rk3rs.github.io/rsa-download/", handoff = document.getElementById("handoff");
+  const ok = () => { handoff.classList.remove("fail"); handoff.classList.add("ok"); handoff.scrollIntoView({block: "nearest"}); };
+  const fail = () => { handoff.classList.remove("ok"); handoff.classList.add("fail"); const i = document.getElementById("dl-url"); i.focus(); i.select(); handoff.scrollIntoView({block: "nearest"}); };
+  document.querySelectorAll("[data-copy-link]").forEach(b => b.addEventListener("click", () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(URL_).then(ok, fail);
+    else fail();
+  }));
+  const toggle = document.querySelector(".dl-toggle"), box = document.getElementById("dlbox");
+  toggle.addEventListener("click", () => {
+    const open = box.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+})();
+
+// "Installation help" links open the matching disclosure.
+(function () {
+  const openHash = () => { const el = document.querySelector(location.hash && /^#help-/.test(location.hash) ? location.hash : null); if (el && el.tagName === "DETAILS") el.open = true; };
+  window.addEventListener("hashchange", openHash); openHash();
+})();
+</script>
+<script>
+document.getElementById("theme-toggle").addEventListener("click", function () {
+  var t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("n2f-theme", t); } catch (e) {}
+});
 </script>
 </body>
 </html>
