@@ -158,7 +158,7 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .explain .proof { margin: 24px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--ring); border-radius: 12px; overflow: hidden; }
 .explain .proof div { padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid var(--ring); }
 .explain .proof div:first-child { border-left: 0; }
-.explain .proof b { font-size: clamp(20px, 1.4vw + 14px, 30px); line-height: 1.15; font-weight: 700; color: var(--black); letter-spacing: -0.02em; }
+.explain .proof b { font-size: clamp(20px, 1.2vw + 14px, 26px); line-height: 1.15; font-weight: 700; color: var(--black); letter-spacing: -0.02em; }
 .explain .proof span { font-size: 13px; line-height: 18px; color: var(--quiet); }
 .explain .proof .win { background: var(--green-bg); }
 .explain .proof .win b { color: var(--green); }
@@ -220,6 +220,7 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .step .shot .crumbs i.key { background: var(--btn-bg); color: var(--btn-ink); border-color: var(--btn-bg); }
 .step .shot .crumbs em { font-style: normal; color: var(--chev); }
 .step .shot .brokers { display: flex; align-items: center; gap: 10px; }
+.step .shot .brokers i img { width: 26px; height: 26px; border-radius: 6px; }
 .step .shot .brokers i { font-style: normal; width: 44px; height: 44px; border-radius: 9999px; border: 1px solid var(--ring); background: var(--well); display: grid; place-items: center; font-weight: 700; font-size: 17px; letter-spacing: -0.3px; color: var(--black); }
 .step .shot .brokers .plus { width: 44px; height: 44px; border-radius: 9999px; background: var(--btn-bg); color: var(--btn-ink); display: grid; place-items: center; }
 .step .shot .brokers .plus svg { width: 18px; height: 18px; }
@@ -234,6 +235,8 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .help details:first-of-type { border-top: 1px solid var(--line); }
 .help summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 20px 0; gap: 20px; }
 .help summary::-webkit-details-marker { display: none; }
+.avatar.logo { background: #fff; overflow: hidden; }
+.avatar.logo img { width: 54%; height: 54%; object-fit: contain; border-radius: 10px; }
 .help .row-l .avatar { width: 60px; height: 60px; border-radius: 30px; font-size: 22px; }
 .help .row-l .avatar svg { width: 26px; height: 26px; }
 .help summary .chev { width: 20px; height: 20px; color: var(--chev); flex: none; transition: transform .2s; }
@@ -384,11 +387,11 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <p class="lead">Reverse split plays open and close fast, and every account you add is another shot at the payout. Placing them by hand, one brokerage at a time, is how people miss the window.</p>
     <p class="lead"><b>Nine2Five's pros find the plays. The bot buys them in every account at once.</b></p>
     <div class="proof">
-      <div><b>AREB</b><span>March 2026</span></div>
-      <div><b>~$6</b><span>In per account</span></div>
-      <div class="win"><b>~$110&ndash;$150</b><span>Per account when it reopened</span></div>
+      <div><span>Most Plays</span><b>A Few Dollars</b><span>Per account</span></div>
+      <div><span>Every Account You Add</span><b>Another Payout</b><span>Same play, more accounts</span></div>
+      <div class="win"><span>The Best Ones</span><b>$100+</b><span>Per account</span></div>
     </div>
-    <p class="fine-print">A real reverse split play, valued at the April 27, 2026 reopen. Past plays don't promise future results.</p>
+    <p class="fine-print">Results vary by play. Past plays don't promise future results.</p>
   </section>
 
   <!-- Featured-card pattern: what the bot does, each on a crop of the real screen -->
@@ -419,21 +422,21 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <div class="list">
       <div class="head"><h2 class="sec-h">Works With Ten Brokerages</h2></div>
       <ul class="rows">
-        <li><div class="row-l"><div class="avatar">R</div><div><p class="t">Robinhood</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">P</div><div><p class="t">Public</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">F</div><div><p class="t">Fennel</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">Fi</div><div><p class="t">Fidelity</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">S</div><div><p class="t">Schwab</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/robinhood.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Robinhood</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/public.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Public</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fennel.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Fennel</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fidelity.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Fidelity</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/schwab.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Schwab</p><p class="s">Sign in the way you always do</p></div></div></li>
       </ul>
     </div>
     <div class="list">
       <div class="head"><h2 class="sec-h">Add Any of Them in Accounts</h2></div>
       <ul class="rows">
-        <li><div class="row-l"><div class="avatar">So</div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">W</div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">WT</div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Uses TradeStation's official connection</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/sofi.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/webull.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/wellstrade.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/tastytrade.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/aries.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Aries</p><p class="s">Uses TradeStation's official connection</p></div></div></li>
       </ul>
     </div>
   </section>
@@ -470,7 +473,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
       </div>
       <div class="step">
         <div class="shot">
-          <div class="brokers"><i>R</i><i>P</i><i>Fi</i><span class="plus"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></span></div>
+          <div class="brokers"><i><img src="brokers/robinhood.png" alt=""></i><i><img src="brokers/public.png" alt=""></i><i><img src="brokers/fidelity.png" alt=""></i><span class="plus"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 3v10M3 8h10"/></svg></span></div>
         </div>
         <div class="words"><h3>Add Your Brokers</h3><p>Go to <b>Accounts</b> and press <b>Add</b> on each brokerage. Sign in the way you always do.</p></div>
       </div>
