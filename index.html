@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Download the Nine2Five Bot</title>
-<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you have, in seconds. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
+<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
 <link rel="icon" href="icon-256.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
@@ -160,13 +160,12 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .card { flex: none; width: 320px; height: 320px; padding: 20px 20px 20px 0; }
 .card .fig { position: relative; width: 100%; height: 100%; border-radius: 8px; overflow: hidden; background: #08090a; }
 .card .fig img { position: absolute; max-width: none; }
-.card .fig::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 24%, rgba(0,0,0,.7) 54%, rgba(0,0,0,.95) 72%, rgba(0,0,0,.97) 100%); }
+.card .fig::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 12%, rgba(0,0,0,.82) 40%, #000 58%, #000 100%); }
 .card .txt { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; color: #fff; }
 .card .badge { display: inline-block; width: min-content; white-space: nowrap; border-radius: 2px; border: 1px solid rgba(255,255,255,.04); background: rgba(0,0,0,.12); backdrop-filter: blur(2px);
   padding: 4px 8px; font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: -0.24px; margin-bottom: 8px; }
 .card .t { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.48px; }
 .card .s { font-size: 14px; line-height: 20px; letter-spacing: -0.28px; color: rgba(255,255,255,.8); font-weight: 500; margin-top: 2px; }
-.card .s span { color: rgba(255,255,255,.6); font-weight: 400; padding-right: 6px; }
 
 /* Two-column list (Top Performers / Popular pattern) */
 .lists { margin-top: 64px; padding: 0 var(--gutter) 64px; display: flex; justify-content: space-between; gap: 24px 100px; flex-wrap: wrap; }
@@ -290,7 +289,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
       <p>Nine2Five</p>
     </div>
     <h1>One Play. All Your Accounts.</h1>
-    <p class="sub">When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you have, in seconds.</p>
+    <p class="sub">When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds.</p>
 
     <div class="dlbox" id="dlbox">
       <!-- phone: hand the page to a computer instead of offering desktop installers -->
@@ -301,7 +300,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
         </button>
         <p class="note">Open this link on your Mac or Windows computer.</p>
         <p class="copied" role="status"><b>Link copied.</b> Open it on your Mac or Windows computer.</p>
-        <div class="fallback"><label class="note" for="dl-url">Copying didn't work. Select and copy this link:</label><input id="dl-url" type="text" readonly value="https://p4rk3rs.github.io/rsa-download/"></div>
+        <div class="fallback"><label class="note" for="dl-url">Copying didn't work. Select and copy this link:</label><input id="dl-url" type="text" readonly value="https://nine2five.live/"></div>
         <button class="dl-toggle" type="button" aria-expanded="false" aria-controls="dl-list">View Desktop Downloads
           <svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
         </button>
@@ -312,20 +311,20 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
           <div class="dl">
             <a class="btn lg" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-apple-silicon.dmg">Apple Silicon Mac
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
-            <span class="meta"><span id="mac-ver">Version 1.1.8</span> &middot; <span id="mac-meta">117 MB</span></span>
+            <span class="meta"><span id="mac-ver">Latest version</span> &middot; <span id="mac-meta">117 MB</span></span>
           </div>
           <div class="dl">
             <a class="btn lg" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-intel.dmg">Intel Mac
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
-            <span class="meta"><span id="mac-intel-ver">Version 1.1.8</span> &middot; <span id="mac-intel-meta">131 MB</span></span>
+            <span class="meta"><span id="mac-intel-ver">Latest version</span> &middot; <span id="mac-intel-meta">131 MB</span></span>
           </div>
           <div class="dl">
             <a class="btn lg" id="dl-win" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-windows-setup.exe">Windows
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
-            <span class="meta"><span id="win-ver">Version 1.1.8</span> &middot; <span id="win-meta">69 MB</span></span>
+            <span class="meta"><span id="win-ver">Latest version</span> &middot; <span id="win-meta">69 MB</span></span>
           </div>
         </div>
-        <p class="which">Which Mac? Apple menu, <b>About This Mac</b>: <b>Chip</b> = Apple Silicon, <b>Processor</b> = Intel.</p>
+        <p class="which">Not sure which Mac? Open the Apple menu, then <b>About This Mac</b>. If it says <b>Chip</b>, pick Apple Silicon. If it says <b>Processor</b>, pick Intel.</p>
       </div>
 
       <div class="premium">
@@ -349,19 +348,19 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <ul class="cards">
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:1176px;left:-156px;top:-198px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Every account at once</p><p class="s"><span>One order,</span>seven accounts, all filled</p></div>
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Every account at once</p><p class="s">One order goes to every account you pick.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2509px;left:0;top:-26px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Auto-Send, your limits</p><p class="s"><span>Only while</span>the bot is open and connected</p></div>
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Auto-Send</p><p class="s">Trades on its own, within the limits you set.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2156px;left:0;top:-975px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Logins stay on your computer</p><p class="s"><span>Sent only</span>to your brokerage</p></div>
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Logins stay on your computer</p><p class="s">Your passwords only ever go to your brokerage.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2117px;left:-1818px;top:-86px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">One order form</p><p class="s"><span>Set it once,</span>send it to every selected account</p></div>
+        <div class="txt"><div class="badge">Demo shown</div><p class="t">Place your own orders</p><p class="s">Buy or sell any stock in all your accounts from one form.</p></div>
       </div></li>
     </ul>
   </section>
@@ -379,20 +378,20 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
       </ul>
     </div>
     <div class="list">
-      <div class="head"><h2 class="sec-h">Add them from Accounts</h2></div>
+      <div class="head"><h2 class="sec-h">Add any of them in Accounts</h2></div>
       <ul class="rows">
         <li><div class="row-l"><div class="avatar">So</div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
         <li><div class="row-l"><div class="avatar">W</div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
         <li><div class="row-l"><div class="avatar">WT</div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Through TastyTrade's API</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Through TradeStation's API</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Connect with a key from TastyTrade</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Connect with a key from TradeStation</p></div></div></li>
       </ul>
     </div>
   </section>
 
   <!-- How it works pattern: three setup steps -->
   <section class="how" id="setup">
-    <h2>How it works.</h2>
+    <h2>How it works</h2>
     <div class="steps">
       <div class="step">
         <div class="shot">
@@ -472,7 +471,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
   </div>
   <hr>
   <div class="fine">
-    <p><span id="version-line">Version 1.1.8</span> &mdash; Mac and Windows.</p>
+    <p><span id="version-line">Latest version</span> &mdash; Mac and Windows.</p>
     <p>Not investment advice. You set the limits; our bot trades within them. <a href="https://whop.com/ninetwofive/">Nine2Five on Whop</a></p>
   </div>
 </footer>
@@ -514,7 +513,7 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
   const coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
   if (phoneUA || (coarse && window.innerWidth < 760)) document.documentElement.classList.add("phone");
 
-  const URL_ = "https://p4rk3rs.github.io/rsa-download/", handoff = document.getElementById("handoff");
+  const URL_ = "https://nine2five.live/", handoff = document.getElementById("handoff");
   const ok = () => { handoff.classList.remove("fail"); handoff.classList.add("ok"); handoff.scrollIntoView({block: "nearest"}); };
   const fail = () => { handoff.classList.remove("ok"); handoff.classList.add("fail"); const i = document.getElementById("dl-url"); i.focus(); i.select(); handoff.scrollIntoView({block: "nearest"}); };
   document.querySelectorAll("[data-copy-link]").forEach(b => b.addEventListener("click", () => {
