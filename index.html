@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Download the Nine2Five Bot</title>
-<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
+<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds. Free to download, runs with Nine2Five Premium. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
 <link rel="icon" href="icon-256.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
@@ -145,6 +145,24 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .screen.main { width: 940px; border-radius: 24px; }
 .screen.main .pic { width: 920px; height: auto; border-radius: 16px; }
 .screen.main img { position: static; width: 100%; height: auto; }
+.whop-say { max-width: 560px; margin: 12px auto 0; font-size: 13px; line-height: 20px; color: var(--quiet); text-align: center; padding: 0 16px; }
+.whop-say b { font-weight: 500; color: var(--body); }
+.safe-line { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin: 16px 0 0; padding: 0 16px; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--black); }
+.safe-line li::before { content: "\2713"; color: var(--green); font-weight: 700; margin-right: 6px; }
+.explain { max-width: 760px; margin: 72px auto 0; padding: 0 var(--gutter); box-sizing: content-box; }
+.explain .lead { margin-top: 12px; font-size: 16px; line-height: 26px; color: var(--body); }
+.explain .lead b { color: var(--black); font-weight: 700; }
+.explain .math { margin-top: 20px; border: 1px solid var(--ring); border-radius: 12px; overflow: hidden; }
+.explain .math div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--line); font-size: 15px; line-height: 22px; color: var(--body); }
+.explain .math div:first-child { border-top: 0; }
+.explain .math b { color: var(--black); font-weight: 700; text-align: right; }
+.explain .math .total { background: var(--green-bg); }
+.explain .math .total b { color: var(--green); }
+.explain .fine-print { margin-top: 8px; font-size: 12px; line-height: 18px; color: var(--quiet); }
+.safety { padding: 64px var(--gutter) 0; }
+.safety ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.safety li { border: 1px solid var(--ring); border-radius: 12px; padding: 16px; font-size: 14px; line-height: 21px; color: var(--body); }
+.safety li b { display: block; margin-bottom: 4px; font-size: 16px; color: var(--black); }
 .screens-cap { margin-top: 0; font-size: 13px; line-height: 20px; letter-spacing: -0.26px; color: var(--quiet); text-align: center; }
 .screens-cap a { color: var(--body); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ul); }
 
@@ -288,8 +306,8 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
       <img class="tile" src="icon-256.png" width="84" height="84" alt="">
       <p>Nine2Five</p>
     </div>
-    <h1>One Play. All Your Accounts.</h1>
-    <p class="sub">When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds.</p>
+    <h1>A Pro Posts the Play.<br>Every Account Buys It.</h1>
+    <p class="sub">Nine2Five's pro finds reverse split plays. Our bot buys each one in every brokerage account you add, in seconds. You just tap Approve.</p>
 
     <div class="dlbox" id="dlbox">
       <!-- phone: hand the page to a computer instead of offering desktop installers -->
@@ -309,12 +327,12 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
       <div class="collapsible" id="dl-list">
         <div class="dl-row" id="downloads">
           <div class="dl">
-            <a class="btn lg" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-apple-silicon.dmg">Apple Silicon Mac
+            <a class="btn lg" id="dl-mac" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-apple-silicon.dmg">Mac with Apple Chip
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
             <span class="meta"><span id="mac-ver">Latest version</span> &middot; <span id="mac-meta">117 MB</span></span>
           </div>
           <div class="dl">
-            <a class="btn lg" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-intel.dmg">Intel Mac
+            <a class="btn lg" id="dl-mac-intel" href="https://github.com/p4rk3rs/rsa-download/releases/latest/download/RSA-1.2.2-mac-intel.dmg">Mac with Intel
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4.5 7.5 8 11l3.5-3.5M3 14h10"/></svg></a>
             <span class="meta"><span id="mac-intel-ver">Latest version</span> &middot; <span id="mac-intel-meta">131 MB</span></span>
           </div>
@@ -324,22 +342,42 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
             <span class="meta"><span id="win-ver">Latest version</span> &middot; <span id="win-meta">69 MB</span></span>
           </div>
         </div>
-        <p class="which">Not sure which Mac? Open the Apple menu, then <b>About This Mac</b>. If it says <b>Chip</b>, pick Apple Silicon. If it says <b>Processor</b>, pick Intel.</p>
+        <p class="which">Most Macs from 2021 on have an Apple chip. Not sure? Apple menu, then <b>About This Mac</b>: <b>Chip</b> means Apple Chip, <b>Processor</b> means Intel.</p>
       </div>
 
       <div class="premium">
-        <span class="tag">Included with Nine2Five Premium &middot; $50.00/month</span>
-        <a href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+        <span class="tag">Free to download &middot; Runs with Nine2Five Premium, $50/month</span>
+        <a href="https://whop.com/ninetwofive/">See member results and reviews on Whop</a>
       </div>
+      <p class="whop-say">Premium is the pro's alerts plus this bot. You buy it on <b>Whop</b>, the store Nine2Five uses for memberships, and it comes with the key that turns the bot on.</p>
+      <ul class="safe-line">
+        <li>Can never move or withdraw your money</li>
+        <li>Only places stock buys and sells</li>
+        <li>Every trade waits for your OK</li>
+      </ul>
     </div>
 
     <!-- the app, where Autopilot shows its row of phone screens -->
-    <div class="screens" aria-label="Our bot, demo shown">
+    <div class="screens" aria-label="Our bot">
       <div class="screen side l down"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Left side of our bot: the sidebar with Auto-Send, Home, Accounts, History, and the Brokerages list."></div></div>
       <div class="screen main up"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Our bot: the Home screen with a buy filled in all seven accounts across Robinhood, Public and Fidelity, with the New Order panel open."></div></div>
       <div class="screen side r down"><div class="pic"><img src="hero.jpg" width="1960" height="1070" alt="Right side of our bot: the New Order panel with Buy, Symbol, Shares per Account and the accounts it will send to."></div></div>
     </div>
-    <p class="screens-cap">Demo shown. <a href="hero.jpg" target="_blank" rel="noopener">Open full size</a></p>
+    <p class="screens-cap"><a href="hero.jpg" target="_blank" rel="noopener">Open full size</a></p>
+  </section>
+
+  <!-- What a reverse split play is, in one example -->
+  <section class="explain" id="what">
+    <h2 class="sec-h">The penny stock trick, explained</h2>
+    <p class="lead">Some companies squash their shares together in a <b>reverse split</b>: every 20 old shares become 1 new one, worth 20 times as much. Own just 1 old share and you'd be left with a tiny piece, so many companies round that piece <b>up to a whole new share</b>.</p>
+    <div class="math">
+      <div><span>Buy 1 share</span><b>$0.30</b></div>
+      <div><span>1-for-20 split, rounded up</span><b>1 new share</b></div>
+      <div><span>That share is worth</span><b>about $6</b></div>
+      <div class="total"><span>Do it in 10 accounts</span><b>about $57 more than you paid</b></div>
+    </div>
+    <p class="fine-print">Example math, not a promise. Not every company rounds up, and prices move before and after a split.</p>
+    <p class="lead">The catch: you have to buy before the split, in every account, before the window closes. Nine2Five's pro finds the plays. The bot buys them everywhere at once.</p>
   </section>
 
   <!-- Featured-card pattern: what the bot does, each on a crop of the real screen -->
@@ -348,19 +386,19 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <ul class="cards">
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:1176px;left:-156px;top:-198px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Every account at once</p><p class="s">One order goes to every account you pick.</p></div>
+        <div class="txt"><p class="t">Every account at once</p><p class="s">One order goes to every account you pick.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2509px;left:0;top:-26px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Auto-Send</p><p class="s">Trades on its own, within the limits you set.</p></div>
+        <div class="txt"><p class="t">Optional Auto-Send</p><p class="s">Off until you turn it on. Then it only trades within your limits.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2156px;left:0;top:-975px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Logins stay on your computer</p><p class="s">Your passwords only ever go to your brokerage.</p></div>
+        <div class="txt"><p class="t">Logins stay on your computer</p><p class="s">Your passwords only ever go to your brokerage.</p></div>
       </div></li>
       <li class="card"><div class="fig">
         <img src="hero.jpg" alt="" style="width:2117px;left:-1818px;top:-86px">
-        <div class="txt"><div class="badge">Demo shown</div><p class="t">Place your own orders</p><p class="s">Buy or sell any stock in all your accounts from one form.</p></div>
+        <div class="txt"><p class="t">Place your own orders</p><p class="s">Buy or sell any stock in all your accounts from one form.</p></div>
       </div></li>
     </ul>
   </section>
@@ -383,10 +421,22 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
         <li><div class="row-l"><div class="avatar">So</div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
         <li><div class="row-l"><div class="avatar">W</div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
         <li><div class="row-l"><div class="avatar">WT</div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Connect with a key from TastyTrade</p></div></div></li>
-        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Connect with a key from TradeStation</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">T</div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
+        <li><div class="row-l"><div class="avatar">A</div><div><p class="t">Aries</p><p class="s">Uses TradeStation's official connection</p></div></div></li>
       </ul>
     </div>
+  </section>
+
+  <!-- Safety, in plain words -->
+  <section class="safety" id="safety">
+    <h2 class="sec-h">Your money stays yours</h2>
+    <ul>
+      <li><b>It can't move money.</b> The bot has no way to transfer, withdraw or deposit. It only places stock buys and sells.</li>
+      <li><b>You approve every trade.</b> Each play waits for your OK. Auto-Send stays off until you turn it on, and even then it only trades within the max price and shares you set.</li>
+      <li><b>Your logins stay on your computer.</b> They're saved on your own computer and go straight to your brokerage. Nine2Five never sees them.</li>
+      <li><b>It signs in like you do.</b> The bot uses your brokerage's own sign-in and places the same kind of order you would.</li>
+      <li><b>Stop any time.</b> Close the app, or switch any account off in Accounts, and it does nothing.</li>
+    </ul>
   </section>
 
   <!-- How it works pattern: three setup steps -->
@@ -399,13 +449,13 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg></div>
           <div class="lines"><b>Mac or Windows</b><span>Open the file you downloaded</span></div>
         </div>
-        <div class="words"><h3>Download and Open</h3><p>Pick your computer above. The bot opens like any other app.</p></div>
+        <div class="words"><h3>Download and Open</h3><p>Pick your computer above. The bot opens like any other app. On Windows, a blue &ldquo;Windows protected your PC&rdquo; box is normal for new apps: press <b>More info</b>, then <b>Run anyway</b>.</p></div>
       </div>
       <div class="step">
         <div class="shot">
           <div class="crumbs"><i>Whop</i><em>&rsaquo;</em><i>Orders</i><em>&rsaquo;</em><i>Nine2Five Premium</i><em>&rsaquo;</em><i class="key">Copy key</i></div>
         </div>
-        <div class="words"><h3>Paste Your License Key</h3><p>In <b>Whop</b>, open <b>Orders</b>, then <b>Nine2Five Premium</b>, and copy the key. Paste it into the bot.</p></div>
+        <div class="words"><h3>Paste Your Key</h3><p>Your key comes with Premium and turns the bot on. On <b>Whop</b>, open <b>Orders</b>, then <b>Nine2Five Premium</b>, copy the key and paste it into the bot.</p></div>
       </div>
       <div class="step">
         <div class="shot">
