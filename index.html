@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Download the Nine2Five Bot</title>
-<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds. Free to download, runs with Nine2Five Premium. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
+<meta name="description" content="Our bot, built for Nine2Five members. When Nine2Five posts a reverse split play, our bot buys it in every brokerage account you add, in seconds. Included with Nine2Five Premium. Mac and Windows. Included with Nine2Five Premium, $50.00 a month.">
 <link rel="icon" href="icon-256.png">
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
@@ -105,6 +105,8 @@ html.phone .desk-only { display: none !important; }
 .dl-row { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
 .dl { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .dl .btn.lg { width: 228px; }
+.dl-row.one .dl:not(.mine) { display: none; }
+.other-dl { display: block; margin: 12px auto 0; background: none; border: 0; padding: 4px 8px; font: inherit; font-size: 14px; font-weight: 500; color: var(--body); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ul); cursor: pointer; }
 .dl .meta { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.28px; color: var(--quiet); }
 .which { margin-top: 20px; font-size: 13px; line-height: 20px; letter-spacing: -0.26px; color: var(--quiet); text-align: center; padding: 0 16px; }
 .which b { font-weight: 500; color: var(--body); }
@@ -153,6 +155,14 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .explain .sec-h { font-size: clamp(24px, 1.2vw + 18px, 36px); line-height: 1.2; }
 .explain .lead { margin-top: 12px; font-size: 16px; line-height: 26px; color: var(--body); }
 .explain .lead b { color: var(--black); font-weight: 700; }
+.explain .proof { margin: 24px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--ring); border-radius: 12px; overflow: hidden; }
+.explain .proof div { padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; border-left: 1px solid var(--ring); }
+.explain .proof div:first-child { border-left: 0; }
+.explain .proof b { font-size: clamp(20px, 1.4vw + 14px, 30px); line-height: 1.15; font-weight: 700; color: var(--black); letter-spacing: -0.02em; }
+.explain .proof span { font-size: 13px; line-height: 18px; color: var(--quiet); }
+.explain .proof .win { background: var(--green-bg); }
+.explain .proof .win b { color: var(--green); }
+.explain .fine-print { margin-top: 8px; font-size: 12px; line-height: 18px; color: var(--quiet); }
 .safety { padding: 64px var(--gutter) 0; }
 .safety ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .safety li { border: 1px solid var(--ring); border-radius: 12px; padding: 16px; font-size: 14px; line-height: 21px; color: var(--body); }
@@ -273,6 +283,13 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
   footer { padding: 40px var(--gutter); }
   footer .cols { flex-direction: column; gap: 32px; }
 }
+@media (max-width: 760px) {
+  .cards { flex-direction: column; align-items: stretch; overflow: visible; padding: 8px var(--gutter); gap: 16px; }
+  .card { width: 100%; max-width: 320px; height: 300px; padding: 0; margin: 0 auto; }
+  .explain .proof { grid-template-columns: 1fr; }
+  .explain .proof div { border-left: 0; border-top: 1px solid var(--ring); }
+  .explain .proof div:first-child { border-top: 0; }
+}
 @media (max-width: 420px) { .nav .right .plain { padding: 8px 6px; } }
 </style>
 </head>
@@ -336,14 +353,15 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
             <span class="meta"><span id="win-ver">Latest version</span> &middot; <span id="win-meta">69 MB</span></span>
           </div>
         </div>
+        <button class="other-dl" type="button" id="other-dl">Other Computers</button>
         <p class="which">Most Macs from 2021 on have an Apple chip. Not sure? Apple menu, then <b>About This Mac</b>: <b>Chip</b> means Apple Chip, <b>Processor</b> means Intel.</p>
       </div>
 
       <div class="premium">
-        <span class="tag">Free to Download &middot; Runs With Nine2Five Premium, $50/Month</span>
+        <span class="tag">Nine2Five Premium &middot; $50/Month &middot; App Included</span>
         <a href="https://whop.com/ninetwofive/">See Member Results and Reviews on Whop</a>
       </div>
-      <p class="whop-say">Premium is our pros' alerts plus this bot. You buy it on <b>Whop</b>, the store Nine2Five uses for memberships, and it comes with the key that turns the bot on.</p>
+      <p class="whop-say">Premium gets you our pros' alerts and this app. Buy it on <b>Whop</b>, the store Nine2Five uses for memberships. It comes with the key that turns the app on.</p>
       <ul class="safe-line">
         <li>Can Never Move or Withdraw Your Money</li>
         <li>Only Places Stock Buys and Sells</li>
@@ -365,6 +383,12 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <h2 class="sec-h">The Play Most Traders Miss</h2>
     <p class="lead">Reverse split plays open and close fast, and every account you add is another shot at the payout. Placing them by hand, one brokerage at a time, is how people miss the window.</p>
     <p class="lead"><b>Nine2Five's pros find the plays. The bot buys them in every account at once.</b></p>
+    <div class="proof">
+      <div><b>AREB</b><span>March 2026</span></div>
+      <div><b>~$6</b><span>In per account</span></div>
+      <div class="win"><b>~$110&ndash;$150</b><span>Per account when it reopened</span></div>
+    </div>
+    <p class="fine-print">A real reverse split play, valued at the April 27, 2026 reopen. Past plays don't promise future results.</p>
   </section>
 
   <!-- Featured-card pattern: what the bot does, each on a crop of the real screen -->
@@ -436,7 +460,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
           <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.4 4.5v7H3zM11.4 4.4 21 3v8.5h-9.6zM3 12.5h7.4v7L3 18.5zM11.4 12.5H21V21l-9.6-1.4z"/></svg></div>
           <div class="lines"><b>Mac or Windows</b><span>Open the File You Downloaded</span></div>
         </div>
-        <div class="words"><h3>Download and Open</h3><p>Pick your computer above. The bot opens like any other app. On Windows, a blue &ldquo;Windows protected your PC&rdquo; box is normal for new apps: press <b>More info</b>, then <b>Run anyway</b>.</p></div>
+        <div class="words"><h3>Download and Open</h3><p>Pick your computer above. The bot opens like any other app.</p></div>
       </div>
       <div class="step">
         <div class="shot">
@@ -533,13 +557,29 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
   if (v.win_mb) document.getElementById("win-meta").textContent = v.win_mb + " MB";
 }).catch(() => {});
 
-// Put the visitor's own computer first. All three buttons look the same; only the order changes.
-// Browsers don't say which Mac chip, so Apple Silicon leads and Intel stays right next to it.
+// Show one download: the visitor's own computer. Other Computers brings back all three.
+// A Mac's chip comes from the graphics name the browser reports (Apple M1... or Intel); when the
+// browser hides it, Apple Chip leads (most Macs since 2021) and Intel is one click away.
 (function () {
   const ua = navigator.userAgent || "", mac = /Macintosh|Mac OS X/.test(ua), win = /Windows/.test(ua);
-  const first = document.getElementById(win ? "dl-win" : "dl-mac"), block = first.closest(".dl");
-  if (mac || win) block.parentNode.prepend(block);
-  if (mac) block.after(document.getElementById("dl-mac-intel").closest(".dl"));
+  const row = document.getElementById("downloads"), other = document.getElementById("other-dl");
+  let chip = "arm";
+  if (mac) {
+    try {
+      const gl = document.createElement("canvas").getContext("webgl"), x = gl && gl.getExtension("WEBGL_debug_renderer_info");
+      const r = x ? String(gl.getParameter(x.UNMASKED_RENDERER_WEBGL)) : "";
+      if (/Intel|AMD|Radeon/i.test(r) && !/Apple M\d/i.test(r)) chip = "intel";
+    } catch (e) { /* keep Apple Chip */ }
+  }
+  const mine = win ? "dl-win" : mac ? (chip === "intel" ? "dl-mac-intel" : "dl-mac") : null;
+  if (!mine) { other.hidden = true; return; }                  // Linux or unknown: all three
+  const block = document.getElementById(mine).closest(".dl");
+  row.prepend(block);
+  row.classList.add("one");
+  block.classList.add("mine");
+  const which = document.querySelector(".which");
+  which.hidden = true;                                          // the Mac chip hint shows with the full list
+  other.addEventListener("click", () => { row.classList.remove("one"); other.hidden = true; which.hidden = false; });
 })();
 
 // Phone visitors get a link to open on a computer instead of installers. A phone is a phone by its
