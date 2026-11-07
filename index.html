@@ -179,11 +179,11 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .featured .sec-h { padding-left: var(--gutter); }
 .cards { display: flex; align-items: center; overflow-x: auto; padding: 8px 0 8px var(--gutter); scrollbar-width: none; }
 .cards::-webkit-scrollbar { display: none; }
-.card { flex: none; width: 320px; height: 320px; padding: 20px 20px 20px 0; }
+.card { flex: none; width: 320px; height: 380px; padding: 20px 20px 20px 0; }
 .card .fig { position: relative; width: 100%; height: 100%; border-radius: 8px; overflow: hidden; background: #08090a; }
 .card .fig img { position: absolute; max-width: none; }
-.card .fig::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 12%, rgba(0,0,0,.82) 40%, #000 58%, #000 100%); }
-.card .txt { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; color: #fff; }
+/* the screenshot stays fully visible above; the words sit on their own solid strip below it */
+.card .txt { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; color: #fff; padding: 36px 20px 20px; background: linear-gradient(180deg, rgba(8,9,10,0) 0, #08090a 28px); }
 .card .badge { display: inline-block; width: min-content; white-space: nowrap; border-radius: 2px; border: 1px solid rgba(255,255,255,.04); background: rgba(0,0,0,.12); backdrop-filter: blur(2px);
   padding: 4px 8px; font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: -0.24px; margin-bottom: 8px; }
 .card .t { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.48px; }
@@ -288,7 +288,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
 }
 @media (max-width: 760px) {
   .cards { flex-direction: column; align-items: stretch; overflow: visible; padding: 8px var(--gutter); gap: 16px; }
-  .card { width: 100%; max-width: 320px; height: 300px; padding: 0; margin: 0 auto; }
+  .card { width: 100%; max-width: 320px; height: 360px; padding: 0; margin: 0 auto; }
   .explain .proof { grid-template-columns: 1fr; }
   .explain .proof div { border-left: 0; border-top: 1px solid var(--ring); }
   .explain .proof div:first-child { border-top: 0; }
@@ -422,21 +422,21 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     <div class="list">
       <div class="head"><h2 class="sec-h">Works With Ten Brokerages</h2></div>
       <ul class="rows">
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/robinhood.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Robinhood</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/public.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Public</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fennel.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Fennel</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fidelity.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Fidelity</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/schwab.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Schwab</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/robinhood.png" alt="" width="48" height="48"></div><div><p class="t">Robinhood</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/public.png" alt="" width="48" height="48"></div><div><p class="t">Public</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fennel.png" alt="" width="48" height="48"></div><div><p class="t">Fennel</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/fidelity.png" alt="" width="48" height="48"></div><div><p class="t">Fidelity</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/schwab.png" alt="" width="48" height="48"></div><div><p class="t">Schwab</p><p class="s">Sign in the way you always do</p></div></div></li>
       </ul>
     </div>
     <div class="list">
       <div class="head"><h2 class="sec-h">Add Any of Them in Accounts</h2></div>
       <ul class="rows">
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/sofi.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/webull.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/wellstrade.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/tastytrade.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
-        <li><div class="row-l"><div class="avatar logo"><img src="brokers/aries.png" alt="" width="48" height="48" loading="lazy"></div><div><p class="t">Aries</p><p class="s">Uses TradeStation's official connection</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/sofi.png" alt="" width="48" height="48"></div><div><p class="t">SoFi</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/webull.png" alt="" width="48" height="48"></div><div><p class="t">Webull</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/wellstrade.png" alt="" width="48" height="48"></div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/tastytrade.png" alt="" width="48" height="48"></div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/aries.png" alt="" width="48" height="48"></div><div><p class="t">Aries</p><p class="s">Uses TradeStation's official connection</p></div></div></li>
       </ul>
     </div>
   </section>
@@ -589,7 +589,8 @@ fetch("latest.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then
 // user agent or a touch-only pointer on a narrow screen; a narrow desktop window keeps the downloads.
 (function () {
   const ua = navigator.userAgent || "";
-  const phoneUA = /iPhone|iPod|Android.*Mobile|Windows Phone/i.test(ua);
+  const phoneUA = /iPhone|iPod|iPad|Android|Windows Phone/i.test(ua)
+    || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);   // an iPad asking for the desktop site
   const coarse = window.matchMedia && matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
   if (phoneUA || (coarse && window.innerWidth < 760)) document.documentElement.classList.add("phone");
 
