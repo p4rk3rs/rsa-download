@@ -1,1 +1,1 @@
-{"version": "1.2.2", "mac_version": "1.2.2", "win_version": "1.2.2", "mac_mb": 118, "mac_intel_mb": 132, "win_mb": 70, "files": {"apple_silicon": "RSA-1.2.2-mac-apple-silicon.dmg", "intel": "RSA-1.2.2-mac-intel.dmg", "windows": "RSA-1.2.2-windows-setup.exe"}}
+{"version": "1.2.3", "mac_version": "1.2.3", "win_version": "1.2.3", "mac_mb": 118, "mac_intel_mb": 132, "win_mb": 70, "files": {"apple_silicon": "RSA-1.2.3-mac-apple-silicon.dmg", "intel": "RSA-1.2.3-mac-intel.dmg", "windows": "RSA-1.2.3-windows-setup.exe"}}
