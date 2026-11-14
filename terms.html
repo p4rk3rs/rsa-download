@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+(function () {
+  var t = null;
+  try { t = localStorage.getItem("n2f-theme"); } catch (e) {}
+  if (t !== "light" && t !== "dark") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  document.documentElement.dataset.theme = t;
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Terms of Service | Nine2Five</title>
+<meta name="description" content="The rules for using Nine2Five and the Nine2Five bot.">
+<link rel="icon" href="./icon-256.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nine2Five">
+<meta property="og:title" content="Terms of Service | Nine2Five">
+<meta property="og:description" content="The rules for using Nine2Five and the Nine2Five bot.">
+<meta property="og:url" content="https://nine2five.live/terms">
+<meta property="og:image" content="https://nine2five.live/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nine2five.live/og.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./legal.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="mark" href="./" aria-label="The Nine2Five bot">
+    <span class="n2f" aria-hidden="true">N<b>2</b>F</span>
+    <span class="sr">Nine2Five</span>
+  </a>
+  <div class="right">
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch light or dark mode" title="Light / dark mode">
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+    </button>
+    <a class="plain" href="https://whop.com/ninetwofive/">Get Premium</a>
+    <a class="btn" href="./#download">Download</a>
+  </div>
+</nav>
+
+<main class="doc">
+  <span class="eyebrow">Legal</span>
+  <h1>Terms of Service</h1>
+  <p class="updated">Last Updated November 13, 2026</p>
+  <p class="lead">These terms cover nine2five.live, the Nine2Five Discord, Nine2Five memberships on Whop and the Nine2Five bot. By using any of them, you agree to these terms.</p>
+
+  <div class="short">
+    <h2>The Short Version</h2>
+    <ul>
+      <li>Nine2Five is information and software, not financial advice.</li>
+      <li>Every order the bot places is your order, in your account, under your settings.</li>
+      <li>Trading has risk. Plays don't always round up, and software can fail.</li>
+      <li>One license key, one computer, for your own use.</li>
+    </ul>
+  </div>
+
+  <h2>What Nine2Five Is</h2>
+  <p>Nine2Five shares reverse split plays and makes the Nine2Five bot, desktop software that places orders in the brokerage accounts you connect to it. We are not a broker, a dealer or an investment adviser. We never hold your money or your accounts.</p>
+
+  <h2>Not Financial Advice</h2>
+  <p>Everything we post, and everything the bot does, is for information and education. None of it is personal advice for you. You decide whether a play fits you, and you can always skip it.</p>
+
+  <h2>Your Orders Are Your Own</h2>
+  <p>The bot runs on your computer, with your brokerage logins, under the settings you choose.</p>
+  <ul>
+    <li>In <b>Review Each Trade</b>, nothing is placed until you press Place.</li>
+    <li>In <b>Automatic</b>, a ping that fits your limits places itself after a countdown, and new shares are sold when they come back. You choose that mode and set its limits.</li>
+    <li>You are responsible for every order placed in your accounts, including automatic ones. Check your brokerage accounts regularly.</li>
+  </ul>
+
+  <h2>Your Brokerage Accounts</h2>
+  <p>You are responsible for following each brokerage's own terms. Some brokerages limit automated access or how many accounts you can hold, and any brokerage may restrict or close an account. Nine2Five is not affiliated with or endorsed by any brokerage, and brokerage names belong to their owners.</p>
+
+  <h2>Risks You Accept</h2>
+  <ul>
+    <li>A reverse split may pay cash in lieu instead of rounding up, and the same play can round up at one brokerage and not another.</li>
+    <li>Prices move. Orders can fill partly, fill at a different price, or not fill at all.</li>
+    <li>Brokerages change their sites and rules, have outages and sign you out. Pings can arrive late or not at all.</li>
+    <li>Software has bugs. The bot can misread a page or a result.</li>
+    <li>Past results, including our posted track record, don't guarantee future results.</li>
+  </ul>
+
+  <h2>Membership and Billing</h2>
+  <p>Nine2Five Premium is sold through Whop. Payments, renewals, cancellations and refunds are handled through Whop, under Whop's terms. When your membership ends, the bot stops opening and pings stop.</p>
+
+  <h2>Your License to Use the Bot</h2>
+  <p>While your membership is active, you may use the bot for your own brokerage accounts. Your key works on one computer at a time. To move it to another computer, use Reset License Key on Whop.</p>
+  <p>You may not share or sell your key, resell or hand out copies of the bot, or copy, take apart or change it. We can end your access for misuse, key sharing, non-payment or chargebacks.</p>
+
+  <h2>Your Computer</h2>
+  <p>The bot only works while your computer is on, awake and online, with the bot open. Your brokerage logins are stored on your computer, so keeping it secure is up to you.</p>
+
+  <h2>Changes to the Service</h2>
+  <p>We may update, change or stop any feature, the plays we post or the bot itself at any time. We work to keep pings and the bot running, but we can't promise they will always be available.</p>
+
+  <h2>No Warranty</h2>
+  <p>Nine2Five and the bot are provided as is and as available, without warranties of any kind, as far as the law allows.</p>
+
+  <h2>Limit of Liability</h2>
+  <p>As far as the law allows, Nine2Five is not liable for trading losses, missed or wrong orders, lost profits, anything a brokerage does, or any indirect or consequential damages. Our total liability for any claim is limited to what you paid us in the 3 months before the claim.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We may update these terms. The date at the top shows the current version. Using Nine2Five after a change means you accept it.</p>
+
+  <h2>Contact</h2>
+  <p>Questions? Message us on <a class="inline" href="https://whop.com/ninetwofive/">Whop</a> or in the Nine2Five Discord. How we handle your information is in our <a class="inline" href="./privacy">Privacy Policy</a>.</p>
+</main>
+
+<footer>
+  <div class="brand">Nine2Five</div>
+  <div class="cols">
+    <div class="col">
+      <h3>Download</h3>
+      <a href="./#download">Mac and Windows</a>
+      <a href="./#install">Installation Help</a>
+    </div>
+    <div class="col">
+      <h3>Nine2Five</h3>
+      <a href="https://whop.com/ninetwofive/">Get Premium on Whop</a>
+      <a href="./#brokerages">Brokerages</a>
+      <a href="./#setup">How It Works</a>
+    </div>
+    <div class="col">
+      <h3>Legal</h3>
+      <a href="./terms">Terms of Service</a>
+      <a href="./privacy">Privacy Policy</a>
+    </div>
+  </div>
+  <hr>
+  <div class="fine">
+    <p>Not investment advice. You set the limits; our bot trades within them. <a href="https://whop.com/ninetwofive/">Nine2Five on Whop</a></p>
+  </div>
+</footer>
+<script>
+document.getElementById("theme-toggle").addEventListener("click", function () {
+  var t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("n2f-theme", t); } catch (e) {}
+});
+</script>
+</body>
+</html>
