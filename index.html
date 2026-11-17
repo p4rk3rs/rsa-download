@@ -249,6 +249,7 @@ html.phone .dlbox.open .dl-toggle .chev { transform: rotate(180deg); }
 .help summary::-webkit-details-marker { display: none; }
 .avatar.logo { background: #fff; overflow: hidden; }
 .avatar.logo img { width: 54%; height: 54%; object-fit: contain; border-radius: 10px; }
+.avatar.logo img[src$="citi.png"] { width: 76%; height: 76%; border-radius: 0; } /* a wide wordmark, not a square tile */
 .help .row-l .avatar { width: 60px; height: 60px; border-radius: 30px; font-size: 22px; }
 .help .row-l .avatar svg { width: 26px; height: 26px; }
 .help summary .chev { width: 20px; height: 20px; color: var(--chev); flex: none; transition: transform .2s; }
@@ -429,7 +430,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
     </ul>
   </section>
 
-  <!-- Two-column list pattern: the ten brokerages -->
+  <!-- Two-column list pattern: the eleven brokerages -->
   <section class="lists" id="brokerages">
     <div class="list">
       <div class="head"><h2 class="sec-h">Works With Ten Brokerages</h2></div>
@@ -449,6 +450,7 @@ footer .fine a { text-decoration: underline; text-underline-offset: 2px; }
         <li><div class="row-l"><div class="avatar logo"><img src="brokers/wellstrade.png" alt="" width="48" height="48"></div><div><p class="t">WellsTrade</p><p class="s">Sign in the way you always do</p></div></div></li>
         <li><div class="row-l"><div class="avatar logo"><img src="brokers/tastytrade.png" alt="" width="48" height="48"></div><div><p class="t">TastyTrade</p><p class="s">Uses TastyTrade's official connection</p></div></div></li>
         <li><div class="row-l"><div class="avatar logo"><img src="brokers/aries.png" alt="" width="48" height="48"></div><div><p class="t">Aries</p><p class="s">Uses Aries' official API</p></div></div></li>
+        <li><div class="row-l"><div class="avatar logo"><img src="brokers/citi.png" alt="" width="48" height="48"></div><div><p class="t">Citi</p><p class="s">Sign in the way you always do</p></div></div></li>
       </ul>
     </div>
   </section>
